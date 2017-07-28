@@ -62,3 +62,4 @@ typings/
 .idea
 pm2.json
 .DS_Store
+data/*
