@@ -1,0 +1,13 @@
+{
+  "apps" : [
+    {
+      "name": "slack-bot-dumbledore",
+      "script": "./bin/bot.js",
+      "exec_mode"  : "fork",
+      "env": {
+        "NODE_ENV": "production",
+        "BOT_API_KEY": ""
+      }
+    }
+  ]
+}
