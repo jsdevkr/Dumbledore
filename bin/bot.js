@@ -14,7 +14,7 @@ var Dumbledore = require('../lib/dumbledore');
 
 var token = process.env.BOT_API_KEY;
 var dbPath = process.env.BOT_DB_PATH;
-var name = process.env.BOT_NAM;
+var name = process.env.BOT_NAME;
 var githubChannel = process.env.BOT_GITHUB_CHANNEL_ID;
 
 var dumbledore = new Dumbledore({
