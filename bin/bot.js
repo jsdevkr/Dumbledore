@@ -24,4 +24,4 @@ var dumbledore = new Dumbledore({
 });
 
 dumbledore.run();
-console.log("test");
+console.log("testing");
