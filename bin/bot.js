@@ -11,7 +11,8 @@ var Dumbledore = require('../lib/dumbledore');
  *  BOT_NAME: the username you want to give to the bot within your organisation.
  *  BOT_GITHUB_CHANNEL_ID: If your team uses a github slack channel for alerts, The Gitub Channel Id goes here.
  */
-var token = process.env.BOT_API_KEY || require('../token');
+
+var token = process.env.BOT_API_KEY;
 var dbPath = process.env.BOT_DB_PATH;
 var name = process.env.BOT_NAME;
 var githubChannel = process.env.BOT_GITHUB_CHANNEL_ID;
@@ -23,5 +24,7 @@ var dumbledore = new Dumbledore({
     githubChannel: githubChannel
 });
 
+
+console.log("Start +Dumbledore bot+ on your slack channel.");
 dumbledore.run();
 
