@@ -21,8 +21,7 @@ var dumbledore = new Dumbledore({
     token: token,
     dbPath: dbPath,
     name: name,
-    githubChannel: githubChannel,
-    params: { link_names: 1}
+    githubChannel: githubChannel
 });
 
 
