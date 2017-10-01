@@ -8,13 +8,14 @@
     "start": "pm2 start ./pm2.json",
     "start-docker": "pm2 start ./pm2.json --no-daemon logs",
     "restart": "pm2 restart ./pm2.json",
-    "stop": "pm2 stop ./pm2.json"
+    "stop": "pm2 stop ./pm2.json",
+    "dev": "nodemon ./bin/bot.js"
   },
   "author": "",
   "license": "ISC",
   "dependencies": {
     "random-js": "^1.0.8",
-    "slackbots": "^0.5.2",
-    "sqlite3": "^3.1.8"
+    "slackbots": "^1.1.0",
+    "sqlite3": "^3.1.13"
   }
 }
