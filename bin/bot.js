@@ -1,6 +1,6 @@
 'use strict';
 
-var Dumbledore = require('../lib/dumbledore');
+const Dumbledore = require('../lib/dumbledore');
 
 /**
  * Environment variables used to configure the bot:
@@ -12,18 +12,12 @@ var Dumbledore = require('../lib/dumbledore');
  *  BOT_GITHUB_CHANNEL_ID: If your team uses a github slack channel for alerts, The Gitub Channel Id goes here.
  */
 
-var token = process.env.BOT_API_KEY;
-var dbPath = process.env.BOT_DB_PATH;
-var name = process.env.BOT_NAME;
-var githubChannel = process.env.BOT_GITHUB_CHANNEL_ID;
-
-var dumbledore = new Dumbledore({
-    token: token,
-    dbPath: dbPath,
-    name: name,
-    githubChannel: githubChannel
+const dumbledore = new Dumbledore({
+    token: process.env.BOT_API_KEY,
+    dbPath: process.env.BOT_DB_PATH,
+    name: process.env.BOT_NAME,
+    githubChannel: process.env.BOT_GITHUB_CHANNEL_ID
 });
-
 
 console.log("Start +Dumbledore bot+ on your slack channel.");
 dumbledore.run();
