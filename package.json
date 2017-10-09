@@ -5,6 +5,8 @@
   "main": "lib/dumbledore.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
+    "lint": "eslint -c .eslintrc lib",
+    "lintfix": "eslint -c .eslintrc lib --fix",
     "start": "pm2 start ./pm2.json",
     "start-docker": "pm2 start ./pm2.json --no-daemon logs",
     "restart": "pm2 restart ./pm2.json",
@@ -24,5 +26,10 @@
   },
   "engines": {
     "node": ">=7.0"
+  },
+  "devDependencies": {
+    "eslint": "^4.8.0",
+    "eslint-config-airbnb-base": "^12.0.2",
+    "eslint-plugin-import": "^2.7.0"
   }
 }

@@ -1,5 +1,3 @@
-'use strict';
-
 const Dumbledore = require('../lib/dumbledore');
 
 /**
@@ -13,11 +11,11 @@ const Dumbledore = require('../lib/dumbledore');
  */
 
 const dumbledore = new Dumbledore({
-    token: process.env.BOT_API_KEY,
-    dbPath: process.env.BOT_DB_PATH,
-    name: process.env.BOT_NAME,
-    githubChannel: process.env.BOT_GITHUB_CHANNEL_ID
+  token: process.env.BOT_API_KEY,
+  dbPath: process.env.BOT_DB_PATH,
+  name: process.env.BOT_NAME,
+  githubChannel: process.env.BOT_GITHUB_CHANNEL_ID
 });
 
-console.log("Start +Dumbledore bot+ on your slack channel.");
+console.log('Start +Dumbledore bot+ on your slack channel.');
 dumbledore.run();
