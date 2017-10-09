@@ -64,3 +64,4 @@ pm2.json
 nodemon.json
 .DS_Store
 data/*
+package-lock.json

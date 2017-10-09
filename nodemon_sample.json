@@ -1,0 +1,21 @@
+{
+  "restartable": "rs",
+  "ignore": [
+    ".git",
+    "node_modules/**/node_modules"
+  ],
+  "verbose": true,
+  "execMap": {
+    "js": "node --harmony"
+  },
+  "watch": [
+    "bin/",
+    "lib/"
+  ],
+  "env": {
+    "NODE_ENV": "development",
+    "BOT_API_KEY": "",
+    "BOT_NAME": "bot1"
+  },
+  "ext": "js json"
+}
