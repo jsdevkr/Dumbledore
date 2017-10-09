@@ -63,5 +63,5 @@ typings/
 pm2.json
 nodemon.json
 .DS_Store
-data/*
+data/dumbledore.db
 package-lock.json

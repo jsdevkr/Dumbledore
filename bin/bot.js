@@ -21,4 +21,3 @@ const dumbledore = new Dumbledore({
 
 console.log("Start +Dumbledore bot+ on your slack channel.");
 dumbledore.run();
-
