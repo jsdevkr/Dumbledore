@@ -15,7 +15,7 @@
     "type": "git",
     "url": "https://github.com/kosslab-kr/Dumbledore"
   },
-  "license": "ISC",
+  "license": "MIT",
   "dependencies": {
     "cron": "^1.3.0",
     "random-js": "^1.0.8",
