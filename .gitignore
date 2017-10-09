@@ -61,5 +61,6 @@ typings/
 
 .idea
 pm2.json
+nodemon.json
 .DS_Store
 data/*
