@@ -18,7 +18,7 @@ To run the Dumbledore you must have an [API token](#getting-the-api-token-for-yo
 
 
 ```bash
-BOT_API_KEY=somesecretkey node bin/bot.js
+$ BOT_API_KEY={key} BOT_NAME={name} node bin/bot.js
 ```
 
 
@@ -44,9 +44,18 @@ Dumbledore is configurable through environment variables. There are several vari
 ```bash
 $ npm install -g nodemon
 $ cp ./nodemon_sample.json ./nodemon.json
-// You need to edit `nodemon.json`
+// You need to change `nodemon.json`
 $ npm run dev
 ```
+
+## Test
+* We use [jasmine](https://jasmine.github.io/):
+
+```bash
+$ BOT_API_KEY={key} BOT_NAME={name} npm test
+```
+
+* If you are a Windows user, use [cross-env](https://www.npmjs.com/package/cross-env).
 
 ## Production
 * We recommend the pm2:
@@ -54,7 +63,7 @@ $ npm run dev
 ```bash
 $ npm install -g pm2
 $ cp ./pm2_sample.json ./pm2.json
-// You need to edit `pm2.json`
+// You need to change `pm2.json`
 $ npm run start (or start-docker)
 ```
 
@@ -63,4 +72,4 @@ This bot was based off the work of lmammino and the norrisbot project. I created
 
 ## License
 
-Licensed under [MIT License](LICENSE). © Benjamin Campbell.
+Licensed under [MIT License](LICENSE).
