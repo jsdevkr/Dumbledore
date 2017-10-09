@@ -1,5 +1,5 @@
 {
-  "extends": "airbnb-base",
+  "extends": ["airbnb", "plugin:react/recommended"],
   "env": {
     "node": true
   },
@@ -31,7 +31,7 @@
     "prefer-arrow-callback": 0
   },
   "plugins": [
-    "import"
+    "import", "react"
   ],
   "settings": {
     "import/resolve": {
