@@ -1,4 +1,6 @@
 # Dumbledore
+![](https://travis-ci.org/kosslab-kr/Dumbledore.svg?branch=master)
+
 A Slack Bot called Dumbledore that lets your team join houses and award house points.
 
 ## Installation 
