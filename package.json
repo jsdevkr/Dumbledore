@@ -1,25 +1,47 @@
 {
   "name": "dumbledore",
-  "version": "1.0.0",
+  "version": "1.1.0",
   "description": "Dumbledore the Slackbot",
   "main": "lib/dumbledore.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
+    "pretest": "npm run lint",
+    "test": "jasmine",
+    "travis": "cp ./data/dumbledore_sample.db ./data/dumbledore.db",
+    "lint": "eslint -c .eslintrc lib",
+    "lintfix": "eslint -c .eslintrc lib --fix",
     "start": "pm2 start ./pm2.json",
     "start-docker": "pm2 start ./pm2.json --no-daemon logs",
     "restart": "pm2 restart ./pm2.json",
-    "stop": "pm2 stop ./pm2.json"
+    "stop": "pm2 stop ./pm2.json",
+    "dev": "nodemon ./bin/bot.js"
   },
-  "author": "",
-  "license": "ISC",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/kosslab-kr/Dumbledore"
+  },
+  "license": "MIT",
   "dependencies": {
     "cron": "^1.3.0",
     "random-js": "^1.0.8",
     "slackbots": "^1.1.0",
     "sqlite3": "^3.1.13"
   },
+<<<<<<< HEAD
   "bin": {
     "dumbledore": "bot.js"
   },
   "keywords": []
+=======
+  "engines": {
+    "node": ">=7.0"
+  },
+  "devDependencies": {
+    "eslint": "^4.8.0",
+    "eslint-config-airbnb": "^16.0.0",
+    "eslint-plugin-import": "^2.7.0",
+    "eslint-plugin-jsx-a11y": "^6.0.2",
+    "eslint-plugin-react": "^7.4.0",
+    "jasmine": "^2.8.0"
+  }
+>>>>>>> young/master
 }

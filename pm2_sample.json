@@ -6,7 +6,8 @@
       "exec_mode"  : "fork",
       "env": {
         "NODE_ENV": "production",
-        "BOT_API_KEY": ""
+        "BOT_API_KEY": "",
+        "BOT_NAME": "bot1"
       }
     }
   ]
