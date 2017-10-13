@@ -4,8 +4,9 @@
   "description": "Dumbledore the Slackbot",
   "main": "lib/dumbledore.js",
   "scripts": {
-    "pretest": "npm run lint",
-    "test": "jasmine",
+    "pretest": "npm run lint && mongodb-runner start",
+    "test": "better-npm-run test",
+    "posttest": "mongodb-runner stop",
     "travis": "cp ./data/dumbledore_sample.db ./data/dumbledore.db",
     "lint": "eslint -c .eslintrc lib",
     "lintfix": "eslint -c .eslintrc lib --fix",
@@ -13,15 +14,28 @@
     "start-docker": "pm2 start ./pm2.json --no-daemon logs",
     "restart": "pm2 restart ./pm2.json",
     "stop": "pm2 stop ./pm2.json",
-    "dev": "nodemon ./bin/bot.js"
+    "dev": "better-npm-run dev"
   },
   "repository": {
     "type": "git",
     "url": "https://github.com/kosslab-kr/Dumbledore"
   },
   "license": "MIT",
+  "betterScripts": {
+    "test": {
+      "command": "jasmine"
+    },
+    "dev": {
+      "command": "mongodb-runner start && nodemon ./bin/bot.js"
+    }
+  },
   "dependencies": {
     "cron": "^1.3.0",
+    "express": "^4.16.2",
+    "kerberos": "0.0.23",
+    "parse": "^1.10.0",
+    "parse-dashboard": "^1.1.0",
+    "parse-server": "^2.6.3",
     "random-js": "^1.0.8",
     "slackbots": "^1.1.0",
     "sqlite3": "^3.1.13"
@@ -30,11 +44,13 @@
     "node": ">=7.0"
   },
   "devDependencies": {
+    "better-npm-run": "^0.1.0",
     "eslint": "^4.8.0",
     "eslint-config-airbnb": "^16.0.0",
     "eslint-plugin-import": "^2.7.0",
     "eslint-plugin-jsx-a11y": "^6.0.2",
     "eslint-plugin-react": "^7.4.0",
-    "jasmine": "^2.8.0"
+    "jasmine": "^2.8.0",
+    "mongodb-runner": "^3.6.1"
   }
 }

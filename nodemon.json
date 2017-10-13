@@ -13,9 +13,7 @@
     "lib/"
   ],
   "env": {
-    "NODE_ENV": "development",
-    "BOT_API_KEY": "",
-    "BOT_NAME": "bot1"
+    "NODE_ENV": "development"
   },
   "ext": "js json"
 }

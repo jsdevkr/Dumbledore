@@ -43,8 +43,8 @@ Dumbledore is configurable through environment variables. There are several vari
 
 ```bash
 $ npm install -g nodemon
-$ cp ./nodemon_sample.json ./nodemon.json
-// You need to change `nodemon.json`
+$ cp ./.env_sample ./.env
+// You need to change `.env`
 $ npm run dev
 ```
 
@@ -52,10 +52,10 @@ $ npm run dev
 * We use [jasmine](https://jasmine.github.io/):
 
 ```bash
-$ BOT_API_KEY={key} BOT_NAME={name} npm test
+$ cp ./.env_sample ./.env
+// You need to change `.env`
+$ npm test
 ```
-
-* If you are a Windows user, use [cross-env](https://www.npmjs.com/package/cross-env).
 
 ## Production
 * We recommend the pm2:
