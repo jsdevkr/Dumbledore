@@ -28,7 +28,8 @@
     "no-unneeded-ternary": 0,
     "no-plusplus": 0,
     "prefer-template": 0,
-    "prefer-arrow-callback": 0
+    "prefer-arrow-callback": 0,
+    "class-methods-use-this": 0
   },
   "plugins": [
     "import", "react"
