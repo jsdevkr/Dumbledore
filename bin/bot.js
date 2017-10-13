@@ -17,5 +17,4 @@ const dumbledore = new Dumbledore({
   githubChannel: process.env.BOT_GITHUB_CHANNEL_ID
 });
 
-console.log('Start +Dumbledore bot+ on your slack channel.');
 dumbledore.run();
