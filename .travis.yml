@@ -9,5 +9,5 @@ before_script:
   - npm run travis
 env:
   global:
-    - BOT_API_KEY=xoxb-254057928980-RwOQplKb5EoIHTi43lnUKhFa
+    - BOT_API_KEY=eG94Yi0yNTQwNTc5Mjg5ODAtMDE0TU4zY2FrQmlhS3NXSnJJNEw5WGEw
     - BOT_NAME=travis

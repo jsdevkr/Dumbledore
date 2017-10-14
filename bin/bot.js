@@ -1,6 +1,7 @@
 const Dumbledore = require('../lib/dumbledore');
 const ParseInstance = require('../parse-server/parse');
 const Parse = require('parse/node');
+const { atob } = require('../lib/helper/common');
 
 /**
  * Environment variables used to configure the bot:
@@ -30,9 +31,13 @@ server.create().then(() => {
   Parse.initialize(process.env.APP_ID || 'myAppId', null, process.env.MASTER_KEY || 'masterKey');
   Parse.serverURL = process.env.SERVER_URL || 'http://localhost:1337/parse';
 
+  // base64 encoded token
+  let token = process.env.BOT_API_KEY;
+  if (token.length > 42) token = atob(token);
+
   // dumbledore bot
   const dumbledore = new Dumbledore({
-    token: process.env.BOT_API_KEY,
+    token,
     dbPath: process.env.BOT_DB_PATH,
     name: process.env.BOT_NAME,
     githubChannel: process.env.BOT_GITHUB_CHANNEL_ID
