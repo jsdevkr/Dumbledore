@@ -13,20 +13,20 @@ module.exports = {
     port: 8080,
     contentBase: path.resolve('page'),
     proxy: {
-      "/": "http://localhost:8000"
+      '/': 'http://localhost:8000'
     },
     watchOptions: {
-      ignore: [path.resolve("lib/*.js"), path.resolve("parse-sever/*.js")],
+      ignore: [path.resolve('lib/*.js'), path.resolve('parse-sever/*.js')],
       aggregateTimeout: 300
     }
   },
   module: {
     rules: [
       {
-        enforce: "pre",
+        enforce: 'pre',
         test: /\.js$/,
         exclude: /node_modules/,
-        loader: "eslint-loader",
+        loader: 'eslint-loader',
         options: {
           fix: true,
           failOnWarning: true,
@@ -40,8 +40,8 @@ module.exports = {
         loader: 'babel-loader',
         options: {
           presets: [
-            "react",
-            "es2015"
+            'react',
+            'es2015'
           ]
         }
       },
@@ -59,7 +59,7 @@ module.exports = {
       }
     ]
   },
-  devtool: "eval",
+  devtool: 'eval',
   plugins: [
     new HtmlWebpackPlugin({
       inject: true,
@@ -70,4 +70,4 @@ module.exports = {
       'process.env.NODE_ENV': JSON.stringify('development')
     })
   ]
-}
+};
