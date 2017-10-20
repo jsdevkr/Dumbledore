@@ -13,7 +13,7 @@ module.exports = {
     port: 8080,
     contentBase: path.resolve('page'),
     proxy: {
-      '/': 'http://localhost:8000'
+      '/': 'http://localhost:1337'
     },
     watchOptions: {
       ignore: [path.resolve('lib/*.js'), path.resolve('parse-sever/*.js')],
