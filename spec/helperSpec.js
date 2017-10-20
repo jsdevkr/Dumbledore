@@ -19,5 +19,7 @@ describe('In helper', function () {
     expect(slackBot.deductPointsCallback).toBeDefined();
     expect(slackBot.getAllHousePointsCallback).toBeDefined();
     expect(slackBot.announcePlainString).toBeDefined();
+    expect(slackBot.getUserList).toBeDefined();
+    expect(slackBot.getName).toBeDefined();
   });
 });
