@@ -11,6 +11,7 @@ describe('parse', function () {
       .then(obj => {
         objId = obj.id;
         const q = new Parse.Query('AnObject');
+        q.descending('createdAt');
         return q.first();
       })
       .then(obj => {
