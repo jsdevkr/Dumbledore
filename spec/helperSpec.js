@@ -14,7 +14,6 @@ describe('In helper', function () {
 
     const slackBot = new SlackBot({ token, name: process.env.BOT_NAME });
 
-    expect(slackBot.explainSorting).toBeDefined();
     expect(slackBot.awardPointsCallback).toBeDefined();
     expect(slackBot.deductPointsCallback).toBeDefined();
     expect(slackBot.getAllHousePointsCallback).toBeDefined();
