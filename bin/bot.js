@@ -1,4 +1,7 @@
 const Dumbledore = require('../lib/dumbledore');
+const ParseInstance = require('../parse-server/parse');
+const Parse = require('parse/node');
+const { atob } = require('../lib/helper/common');
 
 /**
  * Environment variables used to configure the bot:
@@ -10,25 +13,37 @@ const Dumbledore = require('../lib/dumbledore');
  *  BOT_GITHUB_CHANNEL_ID: If your team uses a github slack channel for alerts, The Gitub Channel Id goes here.
  */
 
-<<<<<<< HEAD
-var token = 'xoxb-248266143441-zgzDCId1tMbBG7GKaToXsUi2';//process.env.BOT_API_KEY;
-var dbPath = process.env.BOT_DB_PATH;
-var name = 'bot1';//process.env.BOT_NAME;
-var githubChannel = '#lee';//process.env.BOT_GITHUB_CHANNEL_ID;
-
-var dumbledore = new Dumbledore({
-    token: token,
-    dbPath: dbPath,
-    name: name,
-    githubChannel: githubChannel
-=======
-const dumbledore = new Dumbledore({
-  token: process.env.BOT_API_KEY,
-  dbPath: process.env.BOT_DB_PATH,
-  name: process.env.BOT_NAME,
-  githubChannel: process.env.BOT_GITHUB_CHANNEL_ID
->>>>>>> kosslab_master
+// parse-server
+const server = new ParseInstance({
+  databaseURI: process.env.DATABASE_URI,
+  cloud: process.env.CLOUD_CODE_MAIN,
+  appId: process.env.APP_ID,
+  masterKey: process.env.MASTER_KEY,
+  serverURL: process.env.SERVER_URL,
+  port: process.env.PORT,
+  mountPath: process.env.MOUNT_PATH,
+  user: process.env.ADMIN_NAME,
+  pass: process.env.ADMIN_PASS,
 });
 
-console.log('Start +Dumbledore bot+ on your slack channel.');
-dumbledore.run();
+server.create().then(() => {
+  // parse js sdk
+  Parse.initialize(process.env.APP_ID || 'myAppId', null, process.env.MASTER_KEY || 'masterKey');
+  Parse.serverURL = process.env.SERVER_URL || 'http://localhost:1337/parse';
+
+  // base64 encoded token
+  let token = process.env.BOT_API_KEY;
+  if (token.length > 42) token = atob(token);
+
+  // dumbledore bot
+  const dumbledore = new Dumbledore({
+    token,
+    dbPath: process.env.BOT_DB_PATH,
+    name: process.env.BOT_NAME,
+    githubChannel: process.env.BOT_GITHUB_CHANNEL_ID
+  });
+
+  dumbledore.run().then(() => {
+    console.log('Start +Dumbledore bot+ on your slack channel.');
+  }, console.error);
+}, console.error);
