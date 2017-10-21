@@ -17,7 +17,7 @@
   },
   "repository": {
     "type": "git",
-    "url": "https://github.com/kosslab-kr/Dumbledore"
+    "url": "git+https://github.com/kosslab-kr/Dumbledore.git"
   },
   "license": "MIT",
   "dependencies": {
@@ -26,17 +26,6 @@
     "slackbots": "^1.1.0",
     "sqlite3": "^3.1.13"
   },
-<<<<<<< HEAD
-  "bin": {
-    "dumbledore": "bot.js"
-  },
-  "devDependencies": {},
-  "keywords": []
-  /*
-  "repository" : {
-    "type": "git",
-    "url" : "https://github.com/LeeYeEun2/Dumbledore.git"
-=======
   "engines": {
     "node": ">=7.0"
   },
@@ -47,7 +36,16 @@
     "eslint-plugin-jsx-a11y": "^6.0.2",
     "eslint-plugin-react": "^7.4.0",
     "jasmine": "^2.8.0"
->>>>>>> kosslab_master
-  }
-  */
+  },
+  "bugs": {
+    "url": "https://github.com/kosslab-kr/Dumbledore/issues"
+  },
+  "homepage": "https://github.com/kosslab-kr/Dumbledore#readme",
+  "bin": {
+    "dumbledore": "bot.js"
+  },
+  "directories": {
+    "lib": "lib"
+  },
+  "author": ""
 }
