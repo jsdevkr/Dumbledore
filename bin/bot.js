@@ -10,11 +10,24 @@ const Dumbledore = require('../lib/dumbledore');
  *  BOT_GITHUB_CHANNEL_ID: If your team uses a github slack channel for alerts, The Gitub Channel Id goes here.
  */
 
+<<<<<<< HEAD
+var token = 'xoxb-248266143441-zgzDCId1tMbBG7GKaToXsUi2';//process.env.BOT_API_KEY;
+var dbPath = process.env.BOT_DB_PATH;
+var name = 'bot1';//process.env.BOT_NAME;
+var githubChannel = '#lee';//process.env.BOT_GITHUB_CHANNEL_ID;
+
+var dumbledore = new Dumbledore({
+    token: token,
+    dbPath: dbPath,
+    name: name,
+    githubChannel: githubChannel
+=======
 const dumbledore = new Dumbledore({
-  token: 'xoxb-248266143441-zgzDCId1tMbBG7GKaToXsUi2',
+  token: process.env.BOT_API_KEY,
   dbPath: process.env.BOT_DB_PATH,
-  name: 'bot1',
-  githubChannel: '#lee'
+  name: process.env.BOT_NAME,
+  githubChannel: process.env.BOT_GITHUB_CHANNEL_ID
+>>>>>>> kosslab_master
 });
 
 console.log('Start +Dumbledore bot+ on your slack channel.');
