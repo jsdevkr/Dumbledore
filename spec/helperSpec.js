@@ -7,7 +7,10 @@ describe('In helper', function () {
     const first = stringHandler.capitalizeFirstLetter('letter').charCodeAt(0);
     let check = false;
 
-    if(first < 91 && first > 64) check = true;
+    if(first < 91 && first > 64) {
+      check = true;
+    }
+    
     expect(check).toBe(true);
   });
 
