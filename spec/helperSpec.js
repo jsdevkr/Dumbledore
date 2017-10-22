@@ -4,7 +4,12 @@ describe('In helper', function () {
   const { atob } = require('../lib/helper/common');
 
   it('First letter should be capitalized', () => {
-    expect(stringHandler.capitalizeFirstLetter('letter')).toBe('Letter');
+    const first = stringHandler.capitalizeFirstLetter('letter').charCodeAt(0);
+    let check = false;
+
+    if (first < 91 && first > 64) check = true;
+
+    expect(check).toBe(true);
   });
 
   it('Any functions should not be `undefined` in slackBot', () => {
