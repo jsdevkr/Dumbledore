@@ -8,6 +8,7 @@ describe('In helper', function () {
     let check = false;
 
     if (first < 91 && first > 64) check = true;
+
     expect(check).toBe(true);
   });
 
@@ -25,5 +26,4 @@ describe('In helper', function () {
     expect(slackBot.getUserList).toBeDefined();
     expect(slackBot.getName).toBeDefined();
   });
-  
 });
