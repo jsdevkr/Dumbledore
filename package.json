@@ -16,7 +16,8 @@
     "stop": "pm2 stop ./pm2.json",
     "dev": "npm-run-all --parallel dev:*",
     "dev:server": "better-npm-run dev:server",
-    "dev:client": "better-npm-run dev:client"
+    "dev:client": "better-npm-run dev:client",
+    "build": "webpack --config ./page/webpack.config.prod.js"
   },
   "repository": {
     "type": "git",
@@ -28,7 +29,7 @@
       "command": "jasmine"
     },
     "dev:server": {
-      "command": "mongodb-runner start && nodemon ./bin/bot.js --watch parse-server --watch lib --watch bin"
+      "command": "mongodb-runner start && nodemon ./bin/bot.js --watch server --watch lib --watch bin"
     },
     "dev:client": {
       "command": "webpack-dev-server --config ./page/webpack.config.dev.js"

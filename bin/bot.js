@@ -1,5 +1,5 @@
 const Dumbledore = require('../lib/dumbledore');
-const ParseInstance = require('../parse-server/parse');
+const ParseInstance = require('../server/app');
 const Parse = require('parse/node');
 const { atob } = require('../lib/helper/common');
 

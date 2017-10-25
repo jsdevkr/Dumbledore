@@ -1,7 +1,9 @@
 // parse server
 const express = require('express');
 const { ParseServer } = require('parse-server');
+const Parse = require('parse/node');
 const path = require('path');
+const Dumbledore = require('../lib/dumbledore');
 
 // parse dashboard
 const ParseDashboard = require('parse-dashboard');
@@ -20,7 +22,7 @@ class ParseInstance {
         const app = express();
 
         // Serve static assets from the /public folder
-        app.use('/public', express.static(path.join(__dirname, '/public')));
+        app.use('/public', express.static(path.join(__dirname, '../public')));
 
         // parse server
         const api = new ParseServer({
@@ -57,13 +59,15 @@ class ParseInstance {
         app.use('/dashboard', dashboard);
 
         // Parse Server plays nicely with the rest of your web routes
-        app.get('/', function (req, res) {
+        app.get('/:name', function (req, res) {
+          const name = req.params.name;
+
           res.status(200).send('Make sure to star the parse-server repo on GitHub!');
         });
 
         const port = settings.port || 1337;
         this.server = app.listen(port, function () {
-          console.log('parse-server-example running on port ' + port + '.');
+          console.log('parse-server running on port ' + port + '.');
           resolve();
         });
       } catch (error) {

@@ -5,18 +5,17 @@ const HtmlWebpackPlugin = require('html-webpack-plugin');
 module.exports = {
   entry: './page/src/index.js',
   output: {
-    path: path.resolve('page'),
+    path: path.resolve(__dirname, '/public'),
     filename: 'bundle.js',
   },
   devServer: {
     filename: 'bundle.js',
     port: 8080,
-    contentBase: path.resolve('page'),
     proxy: {
       '/': 'http://localhost:1337'
     },
     watchOptions: {
-      ignore: [path.resolve('lib/*.js'), path.resolve('parse-sever/*.js')],
+      ignore: [path.resolve('lib/*.js'), path.resolve('server/*.js')],
       aggregateTimeout: 300
     }
   },
@@ -63,8 +62,8 @@ module.exports = {
   plugins: [
     new HtmlWebpackPlugin({
       inject: true,
-      filename: '../page/index.html',
-      template: path.resolve(__dirname, '../page/index.html'),
+      filename: '../public/index.html',
+      template: path.resolve(__dirname, '../public/index.html'),
     }),
     new webpack.DefinePlugin({
       'process.env.NODE_ENV': JSON.stringify('development')
