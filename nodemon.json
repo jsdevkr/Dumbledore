@@ -15,5 +15,10 @@
   "env": {
     "NODE_ENV": "development"
   },
-  "ext": "js json"
+  "ext": "js json",
+  "events": {
+    "start": "npm run lint",
+    "restart": "npm run lint",
+    "exit": "mongodb-runner stop"
+  }
 }
