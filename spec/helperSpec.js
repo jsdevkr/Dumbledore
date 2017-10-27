@@ -2,12 +2,14 @@ describe('In helper', function () {
   const stringHandler = require('../lib/helper/stringHandler');
   const SlackBot = require('../lib/helper/slackBot');
   const { atob } = require('../lib/helper/common');
-  let token = process.env.BOT_API_KEY;
-  let bot = null;
+  let token;
+  let slackBot;
 
   beforeAll(() => {
+    token = process.env.BOT_API_KEY;
     if (token.length > 42) token = atob(token);
-    bot = new SlackBot({ token, name: process.env.BOT_NAME });
+
+    slackBot = new SlackBot({ token, name: process.env.BOT_NAME });
   });
 
   it('First letter should be capitalized', () => {
@@ -20,11 +22,11 @@ describe('In helper', function () {
   });
 
   it('Any functions should not be `undefined` in slackBot', () => {
-    expect(bot.awardPointsCallback).toBeDefined();
-    expect(bot.deductPointsCallback).toBeDefined();
-    expect(bot.getAllHousePointsCallback).toBeDefined();
-    expect(bot.announcePlainString).toBeDefined();
-    expect(bot.getUserList).toBeDefined();
-    expect(bot.getName).toBeDefined();
+    expect(slackBot.awardPointsCallback).toBeDefined();
+    expect(slackBot.deductPointsCallback).toBeDefined();
+    expect(slackBot.getAllHousePointsCallback).toBeDefined();
+    expect(slackBot.announcePlainString).toBeDefined();
+    expect(slackBot.getUserList).toBeDefined();
+    expect(slackBot.getName).toBeDefined();
   });
 });
