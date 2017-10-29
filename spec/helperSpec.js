@@ -5,6 +5,16 @@ describe('In helper', function () {
   let token;
   let slackBot;
 
+  const fake = {
+    type: 'message',
+    channel: 'C7A6B2CHF',
+    user: 'U7B970DBR',
+    text: '',
+    ts: '1509022008.000293',
+    source_team: 'T7B8QKJ8P',
+    team: 'T7B8QKJ8P'
+  };
+
   beforeAll(() => {
     token = process.env.BOT_API_KEY;
     if (token.length > 42) token = atob(token);
