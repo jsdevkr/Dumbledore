@@ -2,7 +2,7 @@ describe('In helper', function () {
   const stringHandler = require('../lib/helper/stringHandler');
   const SlackBot = require('../lib/helper/slackBot');
   const { atob } = require('../lib/helper/common');
-  const { INPUT, OUTPUT } = require('../lib/word.js');
+  const { OUTPUT } = require('../lib/word.js');
   let token;
   let slackBot;
 
@@ -44,7 +44,7 @@ describe('In helper', function () {
   it('Bot should say hello', (done) => {
     let check = false;
 
-    slackBot.announcePlainString(fake, OUTPUT.SAY_HELLO).then((r) => {
+    slackBot.announcePlainString(fake, OUTPUT.SAY_HELLO).then(() => {
       check = true;
       expect(check).toBe(true);
       done();
