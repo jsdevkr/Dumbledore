@@ -2,6 +2,7 @@ describe('In helper', function () {
   const stringHandler = require('../lib/helper/stringHandler');
   const SlackBot = require('../lib/helper/slackBot');
   const { atob } = require('../lib/helper/common');
+  const { INPUT, OUTPUT } = require('../lib/word.js');
   let token;
   let slackBot;
 
@@ -38,5 +39,15 @@ describe('In helper', function () {
     expect(slackBot.announcePlainString).toBeDefined();
     expect(slackBot.getUserList).toBeDefined();
     expect(slackBot.getName).toBeDefined();
+  });
+
+  it('Bot should say hello', (done) => {
+    let check = false;
+
+    slackBot.announcePlainString(fake, OUTPUT.SAY_HELLO).then((r) => {
+      check = true;
+      expect(check).toBe(true);
+      done();
+    });
   });
 });
