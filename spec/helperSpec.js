@@ -41,11 +41,32 @@ describe('In helper', function () {
     expect(slackBot.getName).toBeDefined();
   });
 
-  it('Bot should say hello', (done) => {
+  it('Slack bot should say hello', (done) => {
     let check = false;
 
     slackBot.announcePlainString(fake, OUTPUT.SAY_HELLO).then(() => {
-      check = true;
+      try {
+        check = true;
+      } catch (err) {
+        console.error(err);
+      }
+      expect(check).toBe(true);
+      done();
+    });
+  });
+
+  it('Slack bot should get its own name', () => {
+    expect(slackBot.getName()).toEqual(process.env.BOT_NAME);
+  });
+
+  it('Slack bot should get user list', (done) => {
+    slackBot.getUserList().then((o) => {
+      let check = false;
+
+      if (o !== undefined) {
+        check = true;
+      }
+
       expect(check).toBe(true);
       done();
     });
