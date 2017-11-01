@@ -44,8 +44,7 @@
     "random-js": "^1.0.8",
     "react": "^16.0.0",
     "react-dom": "^16.0.0",
-    "slackbots": "^1.1.0",
-    "sqlite3": "^3.1.13"
+    "slackbots": "^1.1.0"
   },
   "engines": {
     "node": ">=7.0"
