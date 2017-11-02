@@ -7,7 +7,7 @@ class ServerInstance {
   }
 
   create() {
-    return new Promise((resolve, reject) => {
+    return new Promise((resolve) => {
       const { settings } = this;
       const port = settings.port || 55555;
       const app = express();
@@ -19,8 +19,8 @@ class ServerInstance {
         console.log('server run...' + port + '.');
         resolve();
       });
-    })      
-  }    
+    });
+  }
 }
 
 module.exports = ServerInstance;

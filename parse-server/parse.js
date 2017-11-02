@@ -1,9 +1,7 @@
 // parse server
 const express = require('express');
 const { ParseServer } = require('parse-server');
-const Parse = require('parse/node');
 const path = require('path');
-const Dumbledore = require('../lib/dumbledore');
 
 // parse dashboard
 const ParseDashboard = require('parse-dashboard');

@@ -1,0 +1,10 @@
+#navbar {
+  background-color: black;
+  padding: 10px 20px;
+  display: flex;
+  box-sizing: border-box;
+  align-items: center;
+  height: 60px;
+  color: white;
+  font-size: 1.3rem;
+}

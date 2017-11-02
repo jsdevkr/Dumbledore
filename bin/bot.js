@@ -1,6 +1,6 @@
 const Dumbledore = require('../lib/dumbledore');
 const ParseInstance = require('../parse-server/app');
-const webInstance = require('../server/app');
+const WebInstance = require('../server/app');
 const Parse = require('parse/node');
 const { atob } = require('../lib/helper/common');
 /**
@@ -26,9 +26,9 @@ const parseServer = new ParseInstance({
   pass: process.env.ADMIN_PASS,
 });
 
-const webServer = new webInstance({
+const webServer = new WebInstance({
   setting: process.env.WEB_PORT
-})
+});
 
 // parse js sdk
 Parse.initialize(process.env.APP_ID || 'myAppId', null, process.env.MASTER_KEY || 'masterKey');
@@ -46,23 +46,23 @@ const dumbledore = new Dumbledore({
   githubChannel: process.env.BOT_GITHUB_CHANNEL_ID
 });
 
-(async function() {
+(async function () {
   try {
     await parseServer.create();
-  }catch(error) {
+  } catch (error) {
     console.log(error);
   }
 
   try {
-    await webServer.create();    
-  }catch(error) {
+    await webServer.create();
+  } catch (error) {
     console.log(error);
   }
 
   try {
     await dumbledore.run();
-    console.log('Start +Dumbledore bot+ on your slack channel.');    
+    console.log('Start +Dumbledore bot+ on your slack channel.');
   } catch (error) {
     console.log(error);
   }
-})();
+}());
