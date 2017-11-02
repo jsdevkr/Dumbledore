@@ -35,7 +35,7 @@ class App extends Component {
             <Header />
           </Grid.Row>
           <Grid.Row>
-            <Grid.Column mobile={16} tablet={8} computer={6}>
+            <Grid.Column mobile={14} tablet={8} computer={6}>
               <Table data={this.state.data} />
             </Grid.Column>
           </Grid.Row>
