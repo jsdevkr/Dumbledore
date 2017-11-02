@@ -49,7 +49,8 @@
     "semantic-ui-css": "^2.2.12",
     "semantic-ui-react": "^0.75.1",
     "slackbots": "^1.1.0",
-    "sqlite3": "^3.1.13"
+    "sqlite3": "^3.1.13",
+    "slackbots": "^1.1.0"
   },
   "engines": {
     "node": ">=7.0"
