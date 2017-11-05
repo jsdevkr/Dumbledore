@@ -1,7 +1,8 @@
 import React, { Component } from 'react';
 import { Grid, Loader } from 'semantic-ui-react';
 import Table from '../components/Table';
-import { getStudent } from '../helper/fetch';
+import { getBot, getStudent } from '../helper/fetch';
+import './TableContainer.css';
 
 class TableContainer extends Component {
   constructor(props) {
@@ -20,17 +21,35 @@ class TableContainer extends Component {
   }
 
   async fetchBots() {
-    await this.setState({
+    this.setState({
       bots: {
-        bots: this.state.bots,
+        ...this.state.bots,
+        isFetching: true
+      }
+    });
+
+    const bots = await getBot();
+
+    this.setState({
+      bots: {
+        data: bots,
+        isFetching: false
+      }
+    });
+  }
+
+  async fetchStudents() {
+    this.setState({
+      students: {
+        ...this.state.students,
         isFetching: true
       }
     });
 
     const students = await getStudent();
 
-    await this.setState({
-      bots: {
+    this.setState({
+      students: {
         data: students,
         isFetching: false
       }
@@ -39,15 +58,14 @@ class TableContainer extends Component {
 
   render() {
     const { bots, students } = this.state;
+    const studentTable = students.isFetching ? <Loader active /> : <Table data={students.data} />;
 
     return (
       <Grid.Row>
         <Grid.Column mobile={14} tablet={6} computer={4}>
           {bots.isFetching || !bots.data ? <Loader active /> : <Table data={bots.data} />}
         </Grid.Column>
-        <Grid.Column mobile={14} tablet={6} computer={4}>
-          {students.isFetching || !students.data ? <Loader active /> : <Table data={students.data} />}
-        </Grid.Column>
+        {students.data ? <Grid.Column mobile={14} tablet={6} computer={4}>{studentTable}</Grid.Column> : ''}
       </Grid.Row>
     );
   }
