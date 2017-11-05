@@ -53,7 +53,7 @@ class ParseInstance {
           ]
         }, true); // allowInsecureHTTP
 
-        // make the Parse Dashboard available at /dashboard
+        // make the Parse dashboard available at /dashboard
         app.use('/dashboard', dashboard);
 
         // Parse Server plays nicely with the rest of your web routes
