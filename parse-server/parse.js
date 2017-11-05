@@ -20,7 +20,7 @@ class ParseInstance {
         const app = express();
 
         // Serve static assets from the /public folder
-        app.use('/public', express.static(path.join(__dirname, '/public')));
+        // app.use('/public', express.static(path.join(__dirname, '../public')));
 
         // parse server
         const api = new ParseServer({
@@ -53,7 +53,7 @@ class ParseInstance {
           ]
         }, true); // allowInsecureHTTP
 
-        // make the Parse Dashboard available at /dashboard
+        // make the Parse dashboard available at /dashboard
         app.use('/dashboard', dashboard);
 
         // Parse Server plays nicely with the rest of your web routes
@@ -63,7 +63,7 @@ class ParseInstance {
 
         const port = settings.port || 1337;
         this.server = app.listen(port, function () {
-          console.log('parse-server-example running on port ' + port + '.');
+          console.log('parse-server running on port ' + port + '.');
           resolve();
         });
       } catch (error) {
