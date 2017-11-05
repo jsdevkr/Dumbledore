@@ -1,22 +1,22 @@
 const webpack = require('webpack');
 const path = require('path');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
+require('babel-polyfill');
 
 module.exports = {
-  entry: './page/src/index.js',
+  entry: ['babel-polyfill', './page/src/index.js'],
   output: {
-    path: path.resolve('page'),
+    path: path.resolve(__dirname, '/public'),
     filename: 'bundle.js',
   },
   devServer: {
     filename: 'bundle.js',
     port: 8080,
-    contentBase: path.resolve('page'),
     proxy: {
       '/': 'http://localhost:1337'
     },
     watchOptions: {
-      ignore: [path.resolve('lib/*.js'), path.resolve('parse-sever/*.js')],
+      ignore: [path.resolve('lib/*.js'), path.resolve('server/*.js')],
       aggregateTimeout: 300
     }
   },
@@ -41,8 +41,12 @@ module.exports = {
         options: {
           presets: [
             'react',
-            'es2015'
-          ]
+            'es2015',
+            'es2017'
+          ],
+          plugins: [
+            'transform-regenerator'
+          ],
         }
       },
       {
@@ -56,6 +60,10 @@ module.exports = {
             }
           }
         ]
+      },
+      {
+        test: /\.(png|ttf|otf|eot|svg|woff(2)?)(\?[a-z0-9]+)?$/,
+        loader: 'file-loader?name=fonts/[name].[ext]'
       }
     ]
   },
@@ -63,8 +71,8 @@ module.exports = {
   plugins: [
     new HtmlWebpackPlugin({
       inject: true,
-      filename: '../page/index.html',
-      template: path.resolve(__dirname, '../page/index.html'),
+      filename: '../public/index.html',
+      template: path.resolve(__dirname, '../public/index.html'),
     }),
     new webpack.DefinePlugin({
       'process.env.NODE_ENV': JSON.stringify('development')
