@@ -1,7 +1,7 @@
 const webpack = require('webpack');
 const path = require('path');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
-require("babel-polyfill");
+require('babel-polyfill');
 
 module.exports = {
   entry: ['babel-polyfill', './page/src/index.js'],
@@ -45,7 +45,7 @@ module.exports = {
             'es2017'
           ],
           plugins: [
-            "transform-regenerator"
+            'transform-regenerator'
           ],
         }
       },
