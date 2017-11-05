@@ -3,6 +3,8 @@ const ParseInstance = require('../parse-server/app');
 const WebInstance = require('../server/app');
 const Parse = require('parse/node');
 const { atob } = require('../lib/helper/common');
+const { DB } = require('../lib/word');
+
 /**
  * Environment variables used to configure the bot:
  *
@@ -53,16 +55,45 @@ const dumbledore = new Dumbledore({
     console.log(error);
   }
 
-  try {
-    await webServer.create();
-  } catch (error) {
-    console.log(error);
-  }
+  // Save mock-up bot data in development mode
+  let name;
+  if (process.env.NODE_ENV === 'development') name = 'bot1';
+  else name = process.env.BOT_NAME;
 
-  try {
-    await dumbledore.run();
-    console.log('Start +Dumbledore bot+ on your slack channel.');
-  } catch (error) {
-    console.log(error);
-  }
-}());
+  const obj = new Parse.Object(DB.BOT.CALL);
+  const query = new Parse.Query(obj);
+
+  obj.set(DB.BOT.BOT_NAME, name);
+  obj.set(DB.BOT.BOT_API_KEY, token);
+  obj.save();
+
+  // dumbledore bot
+  query.count({
+    success: (cnt) => {
+      let dumbledore;
+      if (cnt > 1) {
+        query.each((o) => {
+          const _token = o.get(DB.BOT.BOT_API_KEY);
+          const _name = o.get(DB.BOT.BOT_NAME);
+          dumbledore = new Dumbledore({
+            _token,
+            _name,
+            dbPath: process.env.BOT_DB_PATH,
+            githubChannel: process.env.BOT_GITHUB_CHANNEL_ID,
+          });
+        }).then(() => {}, console.error);
+      } else {
+        dumbledore = new Dumbledore({
+          token,
+          name,
+          dbPath: process.env.BOT_DB_PATH,
+          githubChannel: process.env.BOT_GITHUB_CHANNEL_ID
+        });
+      }
+
+      dumbledore.run().then(() => {
+        console.log('Start *Dumbledore bot* on your slack channel.');
+      }, console.error);
+    }
+  });
+}, console.error);
