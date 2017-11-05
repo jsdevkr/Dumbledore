@@ -1,9 +1,10 @@
 const webpack = require('webpack');
 const path = require('path');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
+require("babel-polyfill");
 
 module.exports = {
-  entry: './page/src/index.js',
+  entry: ['babel-polyfill', './page/src/index.js'],
   output: {
     path: path.resolve(__dirname, '/public'),
     filename: 'bundle.js',
@@ -40,8 +41,12 @@ module.exports = {
         options: {
           presets: [
             'react',
-            'es2015'
-          ]
+            'es2015',
+            'es2017'
+          ],
+          plugins: [
+            "transform-regenerator"
+          ],
         }
       },
       {
