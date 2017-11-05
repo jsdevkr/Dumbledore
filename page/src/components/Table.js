@@ -36,7 +36,7 @@ const Table = ({ data }) => {
   });
 
   return (
-    <STable striped unstackable>
+    <STable striped unstackable selectable>
       <STable.Header>
         <STable.Row>
           <STable.HeaderCell width={3}>Rank</STable.HeaderCell>

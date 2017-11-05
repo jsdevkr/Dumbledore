@@ -10,15 +10,23 @@ class App extends Component {
   constructor(props) {
     super(props);
 
-    const dummy = new Array(10).fill(undefined).map((e, idx) => (
+    const botDummy = new Array(10).fill(undefined).map((e, idx) => (
       {
         id: idx,
-        name: `name${idx}`,
+        name: `bot ${idx}`,
         point: `${idx * 100}`
       }
-    ));
+    )).sort((a, b) => b.point - a.point);
 
-    this.state = { data: dummy };
+    const studentDummy = new Array(10).fill(undefined).map((e, idx) => (
+      {
+        id: idx,
+        name: `student ${idx}`,
+        point: `${idx * 10}`
+      }
+    )).sort((a, b) => b.point - a.point);
+
+    this.state = { botDummy, studentDummy };
   }
 
   componentDidMount() {
@@ -35,8 +43,11 @@ class App extends Component {
             <Header />
           </Grid.Row>
           <Grid.Row>
-            <Grid.Column mobile={14} tablet={8} computer={6}>
-              <Table data={this.state.data} />
+            <Grid.Column mobile={14} tablet={6} computer={4}>
+              <Table data={this.state.botDummy} />
+            </Grid.Column>
+            <Grid.Column mobile={14} tablet={6} computer={4}>
+              <Table data={this.state.studentDummy} />
             </Grid.Column>
           </Grid.Row>
         </Grid>
