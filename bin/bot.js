@@ -43,17 +43,22 @@ async function startBot() {
     webServer.create();
 
     if (process.env.NODE_ENV === 'development') {
-      const name = process.env.BOT_NAME;
+      const query = new Parse.Query(DB.BOT.CALL);
+      const botCount = await query.count();
 
-      // base64 encoded token
-      let token = process.env.BOT_API_KEY;
-      if (token.length > 42) token = atob(token);
+      if (!botCount) {
+        const name = process.env.BOT_NAME;
 
-      const obj = new Parse.Object(DB.BOT.CALL);
-      await obj.save({
-        [DB.BOT.BOT_NAME]: name,
-        [DB.BOT.BOT_API_KEY]: token
-      });
+        // base64 encoded token
+        let token = process.env.BOT_API_KEY;
+        if (token.length > 42) token = atob(token);
+
+        const obj = new Parse.Object(DB.BOT.CALL);
+        await obj.save({
+          [DB.BOT.BOT_NAME]: name,
+          [DB.BOT.BOT_API_KEY]: token
+        });
+      }
     }
 
     // dumbledore bot
