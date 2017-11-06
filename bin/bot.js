@@ -1,7 +1,9 @@
 const Dumbledore = require('../lib/dumbledore');
 const ParseInstance = require('../parse-server/parse');
+const WebInstance = require('../server/app');
 const Parse = require('parse/node');
 const { atob } = require('../lib/helper/common');
+const { DB } = require('../lib/word');
 
 /**
  * Environment variables used to configure the bot:
@@ -14,36 +16,65 @@ const { atob } = require('../lib/helper/common');
  */
 
 // parse-server
-const server = new ParseInstance({
+const parseServer = new ParseInstance({
   databaseURI: process.env.DATABASE_URI,
   cloud: process.env.CLOUD_CODE_MAIN,
   appId: process.env.APP_ID,
   masterKey: process.env.MASTER_KEY,
   serverURL: process.env.SERVER_URL,
-  port: process.env.PORT,
+  port: process.env.PARSE_PORT,
   mountPath: process.env.MOUNT_PATH,
   user: process.env.ADMIN_NAME,
   pass: process.env.ADMIN_PASS,
 });
 
-server.create().then(() => {
-  // parse js sdk
-  Parse.initialize(process.env.APP_ID || 'myAppId', null, process.env.MASTER_KEY || 'masterKey');
-  Parse.serverURL = process.env.SERVER_URL || 'http://localhost:1337/parse';
+// parse js sdk
+Parse.initialize(process.env.APP_ID || 'myAppId', null, process.env.MASTER_KEY || 'masterKey');
+Parse.serverURL = process.env.SERVER_URL || 'http://localhost:1337/parse';
 
-  // base64 encoded token
-  let token = process.env.BOT_API_KEY;
-  if (token.length > 42) token = atob(token);
+async function startBot() {
+  try {
+    await parseServer.create();
 
-  // dumbledore bot
-  const dumbledore = new Dumbledore({
-    token,
-    dbPath: process.env.BOT_DB_PATH,
-    name: process.env.BOT_NAME,
-    githubChannel: process.env.BOT_GITHUB_CHANNEL_ID
-  });
+    // web server
+    const webServer = new WebInstance({
+      setting: process.env.WEB_PORT
+    });
+    webServer.create();
 
-  dumbledore.run().then(() => {
-    console.log('Start +Dumbledore bot+ on your slack channel.');
-  }, console.error);
-}, console.error);
+    if (process.env.NODE_ENV === 'development') {
+      const query = new Parse.Query(DB.BOT.CALL);
+      const botCount = await query.count();
+
+      if (!botCount) {
+        const name = 'bot1';//process.env.BOT_NAME;
+
+        // base64 encoded token
+        let token = 'xoxb-248266143441-zgzDCId1tMbBG7GKaToXsUi2' //process.env.BOT_API_KEY;
+        if (token.length > 42) token = atob(token);
+
+        const obj = new Parse.Object(DB.BOT.CALL);
+        await obj.save({
+          [DB.BOT.BOT_NAME]: name,
+          [DB.BOT.BOT_API_KEY]: token
+        });
+      }
+    }
+
+    // dumbledore bot
+    const query = new Parse.Query(DB.BOT.CALL);
+    await query.each((o) => {
+      const dumbledore = new Dumbledore({
+        token: o.get(DB.BOT.BOT_API_KEY),
+        name: o.get(DB.BOT.BOT_NAME)
+      });
+
+      dumbledore.run().then(() => {
+        console.log('Start *Dumbledore bot* on your slack channel.');
+      }, console.error);
+    });
+  } catch (error) {
+    return console.log(error);
+  }
+}
+startBot();
