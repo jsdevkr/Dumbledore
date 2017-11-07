@@ -1,7 +1,8 @@
 import React, { Component } from 'react';
 import { Grid, Loader } from 'semantic-ui-react';
 import Table from '../components/Table';
-import { getStudent } from '../helper/fetch';
+import { getBot, getStudent } from '../helper/fetch';
+import './TableContainer.css';
 
 class TableContainer extends Component {
   constructor(props) {
@@ -13,6 +14,7 @@ class TableContainer extends Component {
     };
 
     this.fetchBots = this.fetchBots.bind(this);
+    this.fetchStudents = this.fetchStudents.bind(this);
   }
 
   componentDidMount() {
@@ -22,15 +24,33 @@ class TableContainer extends Component {
   async fetchBots() {
     await this.setState({
       bots: {
-        bots: this.state.bots,
+        data: [],
         isFetching: true
       }
     });
 
-    const students = await getStudent();
+    const bots = await getBot();
 
     await this.setState({
       bots: {
+        data: bots,
+        isFetching: false
+      }
+    });
+  }
+
+  async fetchStudents(id) {
+    await this.setState({
+      students: {
+        data: [],
+        isFetching: true
+      }
+    });
+
+    const students = await getStudent(id);
+
+    await this.setState({
+      students: {
         data: students,
         isFetching: false
       }
@@ -39,15 +59,21 @@ class TableContainer extends Component {
 
   render() {
     const { bots, students } = this.state;
+    let botsComponent = '';
+    let studentsComponent = '';
+
+    if (bots.data) {
+      botsComponent = <Grid.Column className="data__table" mobile={14} tablet={6} computer={4}>{bots.isFetching ? <Loader active size="big">Loading</Loader> : <Table data={bots.data} fetchStudents={this.fetchStudents} selectable />}</Grid.Column>;
+    }
+
+    if (students.data) {
+      studentsComponent = <Grid.Column className="data__table" mobile={14} tablet={6} computer={4}>{students.isFetching ? <Loader active size="medium">Loading</Loader> : <Table data={students.data} />}</Grid.Column>;
+    }
 
     return (
       <Grid.Row>
-        <Grid.Column mobile={14} tablet={6} computer={4}>
-          {bots.isFetching || !bots.data ? <Loader active /> : <Table data={bots.data} />}
-        </Grid.Column>
-        <Grid.Column mobile={14} tablet={6} computer={4}>
-          {students.isFetching || !students.data ? <Loader active /> : <Table data={students.data} />}
-        </Grid.Column>
+        {botsComponent}
+        {studentsComponent}
       </Grid.Row>
     );
   }
