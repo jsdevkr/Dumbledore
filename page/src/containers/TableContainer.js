@@ -24,11 +24,7 @@ class TableContainer extends Component {
   async fetchBots() {
     this.setState({
       bots: {
-<<<<<<< HEAD
         data: [],
-=======
-        ...this.state.bots,
->>>>>>> f2acf382545e366346855f49d546f66eb4dbb667
         isFetching: true
       }
     });
@@ -43,30 +39,17 @@ class TableContainer extends Component {
     });
   }
 
-<<<<<<< HEAD
   async fetchStudents(id) {
     await this.setState({
       students: {
         data: [],
-=======
-  async fetchStudents() {
-    this.setState({
-      students: {
-        ...this.state.students,
->>>>>>> f2acf382545e366346855f49d546f66eb4dbb667
         isFetching: true
       }
     });
 
-<<<<<<< HEAD
     const students = await getStudent(id);
 
     await this.setState({
-=======
-    const students = await getStudent();
-
-    this.setState({
->>>>>>> f2acf382545e366346855f49d546f66eb4dbb667
       students: {
         data: students,
         isFetching: false
@@ -76,7 +59,6 @@ class TableContainer extends Component {
 
   render() {
     const { bots, students } = this.state;
-<<<<<<< HEAD
     let botsComponent = '';
     let studentsComponent = '';
 
@@ -92,16 +74,6 @@ class TableContainer extends Component {
       <Grid.Row>
         {botsComponent}
         {studentsComponent}
-=======
-    const studentTable = students.isFetching ? <Loader active /> : <Table data={students.data} />;
-
-    return (
-      <Grid.Row>
-        <Grid.Column mobile={14} tablet={6} computer={4}>
-          {bots.isFetching || !bots.data ? <Loader active /> : <Table data={bots.data} />}
-        </Grid.Column>
-        {students.data ? <Grid.Column mobile={14} tablet={6} computer={4}>{studentTable}</Grid.Column> : ''}
->>>>>>> f2acf382545e366346855f49d546f66eb4dbb667
       </Grid.Row>
     );
   }
