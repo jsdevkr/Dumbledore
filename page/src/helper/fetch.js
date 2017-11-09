@@ -18,14 +18,12 @@ export async function getBot() {
 }
 
 export async function getStudent(id) {
-  console.log(id);
   // Todo: create logic for get student
-
   const studentDummy = new Array(10).fill(undefined).map((e, idx) => (
     {
       id: idx,
       name: `student ${idx}`,
-      point: `${idx * 10}`
+      point: `${id * 10}`
     }
   )).sort((a, b) => b.point - a.point);
 
