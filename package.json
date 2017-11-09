@@ -7,7 +7,7 @@
     "pretest": "npm run lint && mongodb-runner start",
     "test": "better-npm-run test",
     "posttest": "mongodb-runner stop",
-    "travis": "",
+    "travis": "echo \"travis\"",
     "lint": "eslint -c .eslintrc .",
     "lintfix": "eslint -c .eslintrc . --fix",
     "prestart": "npm run build",
