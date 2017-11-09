@@ -2,6 +2,7 @@ const ParseInstance = require('../../parse-server/parse');
 const Parse = require('parse/node');
 const Dumbledore = require('../../lib/dumbledore');
 const { DB } = require('../../lib/word');
+const { atob } = require('../../lib/helper/common');
 
 jasmine.DEFAULT_TIMEOUT_INTERVAL = process.env.PARSE_SERVER_TEST_TIMEOUT || 5000;
 
