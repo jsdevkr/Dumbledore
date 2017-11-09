@@ -1,5 +1,3 @@
-import { setInterval } from 'timers';
-
 const Dumbledore = require('../lib/dumbledore');
 const ParseInstance = require('../parse-server/parse');
 const WebInstance = require('../server/app');
@@ -58,7 +56,7 @@ async function startBot() {
 
     // web server
     const webServer = new WebInstance({
-      setting: process.env.WEB_PORT
+      setting: process.env.PORT
     });
     webServer.create();
 
