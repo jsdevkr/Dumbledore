@@ -1,14 +1,8 @@
 describe('bot', function () {
-  // const Dumbledore = require('../lib/dumbledore');
-  // const { atob } = require('../lib/helper/common');
+  const Dumbledore = require('../lib/dumbledore');
+  const { atob } = require('../lib/helper/common');
 
-
-  it('test', () => {
-    this.dumbledore.run().then(() => {
-      console.log('Start *Dumbledore bot* for testing.');
-    }, console.error);
-  });
-/*  it('should be able to launch', (done) => {
+  it('should be able to launch', (done) => {
     // base64 encoded token
     let token = process.env.BOT_API_KEY;
     if (token.length > 42) token = atob(token);
@@ -29,5 +23,5 @@ describe('bot', function () {
       done();
     });
   });
-  */
+
 });
