@@ -4,10 +4,6 @@ const WebInstance = require('../server/app');
 const Parse = require('parse/node');
 const { atob } = require('../lib/helper/common');
 const { DB } = require('../lib/word');
-<<<<<<< HEAD
-=======
-
->>>>>>> dum
 
 /**
  * Environment variables used to configure the bot:
@@ -19,10 +15,7 @@ const { DB } = require('../lib/word');
  *  BOT_GITHUB_CHANNEL_ID: If your team uses a github slack channel for alerts, The Gitub Channel Id goes here.
  */
 
-<<<<<<< HEAD
 // parse-server
-=======
->>>>>>> dum
 const parseServer = new ParseInstance({
   databaseURI: process.env.DATABASE_URI,
   cloud: process.env.CLOUD_CODE_MAIN,
