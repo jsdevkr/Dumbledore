@@ -7,11 +7,11 @@
     "pretest": "npm run lint && mongodb-runner start",
     "test": "better-npm-run test",
     "posttest": "mongodb-runner stop",
-    "travis": "cp ./data/dumbledore_sample.db ./data/dumbledore.db",
+    "travis": "",
     "lint": "eslint -c .eslintrc .",
     "lintfix": "eslint -c .eslintrc . --fix",
-    "start": "pm2 start ./pm2.json",
-    "start-docker": "pm2 start ./pm2.json --no-daemon logs",
+    "prestart": "npm run build",
+    "start": "pm2 start ./pm2.json --no-daemon logs",
     "restart": "pm2 restart ./pm2.json",
     "stop": "pm2 stop ./pm2.json",
     "predev": "mongodb-runner start",
@@ -49,7 +49,8 @@
     "react-dom": "^16.0.0",
     "semantic-ui-css": "^2.2.12",
     "semantic-ui-react": "^0.75.1",
-    "slackbots": "^1.1.0"
+    "slackbots": "^1.1.0",
+    "pm2": "^2.7.2"
   },
   "engines": {
     "node": ">=7.0"

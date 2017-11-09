@@ -9,5 +9,12 @@ before_script:
   - npm run travis
 env:
   global:
-    - BOT_API_KEY=eG94Yi0yNTQwNTc5Mjg5ODAtMDE0TU4zY2FrQmlhS3NXSnJJNEw5WGEw
-    - BOT_NAME=travis
+  - BOT_API_KEY=eG94Yi0yNTQwNTc5Mjg5ODAtMDE0TU4zY2FrQmlhS3NXSnJJNEw5WGEw
+  - BOT_NAME=travis
+deploy:
+  provider: heroku
+  api_key:
+    secure: MvvRdS9YjgVt5FE5hXxolMCKpKct4yOyu3a9yo74JVzG+fJkBdleQ+N2egI7a3mEqENmPvXvxVH9dU9Lz3bqwC9clv+9CUckCtXIcHGWrdIR4xvAy/HX0ei6o119O8mf3MFNE51ByBzjDLtueQHKzjoDgzY0M9zOPKDarHyPTrlYyfHqz/B7BhdizDV0mU17J7qCQmEAOW3I/GMQUeT+5oNVPpucN+R8aDoTXo97HqzmzDJJ+W1WlPdxV3irJfJWJYfAWlosxL9ZMhWV4+c162KY4ToO5fDVeTjxWjSyyAhtqhvR+/qoDEYzO4aOoieUkMA9/2VxarvdHXV5ql+kbnjdxLN0z5z/fmNndW0JuJ2s+1D53OztctBCZJh2A3hx3q6Igmu8rPgUCix9ov6g4+nm3rZ0517Guc5fsQr5x8L5NYzeh3X0OtGZj7Q4toczSobbT5QB+CNvPVZ6H6WPBrZPOYkzkHt0ER6tbePX61mnrGOjbs0ABWZAK1oJy9T8BpTqquJc4snhqS2/dJO0bQWPOKDjjdg5XoJq0iV212fu7D5pDewFxQ4mCq4r0zPqYhNJiMREYTuGo7XxEwmvHzKkFUKw8o3weGaqjbNS+GlP5XZ6OeawSIcETUfcei/dSQwfsMYFeZ4tZwuKKSbDM9QXNFmTTfMcMjy8k77F3ZI=
+  app: dumbledorebot
+  on:
+    repo: kosslab-kr/Dumbledore

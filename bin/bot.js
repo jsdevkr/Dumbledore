@@ -1,3 +1,5 @@
+import { setInterval } from 'timers';
+
 const Dumbledore = require('../lib/dumbledore');
 const ParseInstance = require('../parse-server/parse');
 const WebInstance = require('../server/app');
@@ -32,6 +34,24 @@ const parseServer = new ParseInstance({
 Parse.initialize(process.env.APP_ID || 'myAppId', null, process.env.MASTER_KEY || 'masterKey');
 Parse.serverURL = process.env.SERVER_URL || 'http://localhost:1337/parse';
 
+const bots = {};
+async function createBot() {
+  // dumbledore bot
+  const query = new Parse.Query(DB.BOT.CALL);
+  await query.each((o) => {
+    const token = o.get(DB.BOT.BOT_API_KEY);
+    const name = o.get(DB.BOT.BOT_NAME);
+
+    if (bots[token]) return;
+
+    // new
+    bots[token] = new Dumbledore({ token, name });
+    bots[token].run().then(() => {
+      console.log('Start *Dumbledore [' + name + ']* on your slack channel.');
+    }, console.error);
+  });
+}
+
 async function startBot() {
   try {
     await parseServer.create();
@@ -61,18 +81,11 @@ async function startBot() {
       }
     }
 
-    // dumbledore bot
-    const query = new Parse.Query(DB.BOT.CALL);
-    await query.each((o) => {
-      const dumbledore = new Dumbledore({
-        token: o.get(DB.BOT.BOT_API_KEY),
-        name: o.get(DB.BOT.BOT_NAME)
-      });
-
-      dumbledore.run().then(() => {
-        console.log('Start *Dumbledore bot* on your slack channel.');
-      }, console.error);
-    });
+    createBot();
+    // TODO : fix later
+    setInterval(() => {
+      createBot();
+    }, 10000);
   } catch (error) {
     return console.log(error);
   }
