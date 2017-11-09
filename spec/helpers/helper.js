@@ -1,5 +1,7 @@
 const ParseInstance = require('../../parse-server/parse');
 const Parse = require('parse/node');
+const Dumbledore = require('../../lib/dumbledore');
+const { DB } = require('../../lib/word');
 
 jasmine.DEFAULT_TIMEOUT_INTERVAL = process.env.PARSE_SERVER_TEST_TIMEOUT || 5000;
 
@@ -27,10 +29,38 @@ function createServer() {
         pass: process.env.ADMIN_PASS,
       });
 
-      server.create().then(() => {
+      server.create().then(async () => {
         // parse js sdk
         Parse.initialize(process.env.APP_ID || 'myAppId', null, process.env.MASTER_KEY || 'masterKey');
         Parse.serverURL = process.env.SERVER_URL || 'http://localhost:1337/parse';
+
+        const query = new Parse.Query(DB.BOT.CALL);
+        const botCount = await query.count();
+
+        if (!botCount) {
+          const name = process.env.BOT_NAME;
+
+          // base64 encoded token
+          let token = process.env.BOT_API_KEY;
+          if (token.length > 42) token = atob(token);
+
+          const obj = new Parse.Object(DB.BOT.CALL);
+          await obj.save({
+            [DB.BOT.BOT_NAME]: name,
+            [DB.BOT.BOT_API_KEY]: token
+          });
+        }
+
+        // dumbledore bot
+        query.first({
+          success(res) {
+            this.dumbledore = new Dumbledore({
+              token: res.get(DB.BOT.BOT_API_KEY),
+              name: res.get(DB.BOT.BOT_NAME)
+            });
+          }
+        });
+
         resolve();
       }, reject);
     } catch (error) {
