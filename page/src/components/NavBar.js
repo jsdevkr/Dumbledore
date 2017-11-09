@@ -3,9 +3,13 @@ import './NavBar.css';
 
 const NavBar = () => {
   return (
-    <div id="navbar">
+    <div id="navbar" >
       Dumbledore
+      <button>
+        hello
+      </button>
     </div>
+
   );
 };
 
