@@ -1,15 +1,22 @@
 import React from 'react';
 import './NavBar.css';
+import LoginModal from '../components/LoginModal';
+import BotregisterModal from '../components/BotregisterModal';
 
 const NavBar = () => {
   return (
-    <div id="navbar" >
+    <div id="navbar">
       Dumbledore
-      <button>
-        hello
-      </button>
-    </div>
 
+      <div id="botRegister">
+        <BotregisterModal />
+      </div>
+
+      <div id="login">
+        <LoginModal />
+      </div>
+
+    </div>
   );
 };
 
