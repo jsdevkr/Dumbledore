@@ -1,6 +1,5 @@
 const webpack = require('webpack');
 const path = require('path');
-const HtmlWebpackPlugin = require('html-webpack-plugin');
 require('babel-polyfill');
 
 module.exports = {
@@ -70,11 +69,6 @@ module.exports = {
   },
   devtool: 'eval',
   plugins: [
-    new HtmlWebpackPlugin({
-      inject: true,
-      filename: '../index.html',
-      template: path.resolve(__dirname, '../public/index.html'),
-    }),
     new webpack.DefinePlugin({
       'process.env.NODE_ENV': JSON.stringify('development')
     })
