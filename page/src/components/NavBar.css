@@ -10,53 +10,22 @@ html, body{height : 100%}
   font-size: 1.3rem;
 }
 
-<<<<<<< HEAD
-#modal_size{
-  position: relative;
-  left : 0%;
-  width: 30%;
-  margin: auto;
-  -webkit-box-sizing: border-box;
-     -moz-box-sizing: border-box;
-          box-sizing: border-box;
-}
-
-=======
->>>>>>> d559303c2a49ca797eed19acac0efe1047296991
 #login {
   margin-left: auto;
 }
 
-<<<<<<< HEAD
-#botRegister {
-  /*position: relative;*/
-  margin-left: 85%;
-
-}
-
-#modal_login_key {
-  
-=======
 #login_key {
->>>>>>> d559303c2a49ca797eed19acac0efe1047296991
   position: relative;
   left : 15%;
   height: 33px;
 }
 
-<<<<<<< HEAD
-#modal_login_pw {
-=======
 #login_pw {
->>>>>>> d559303c2a49ca797eed19acac0efe1047296991
   position: relative;
   left : 6.7%;
   height: 33px;
 }
 
-<<<<<<< HEAD
-#modal_bot_name {
-=======
 #modal-size{
   position: relative;
   left : 0%;
@@ -72,31 +41,18 @@ html, body{height : 100%}
 }
 
 #bot_name {
->>>>>>> d559303c2a49ca797eed19acac0efe1047296991
   position: relative;
   left : 8%;
   height: 33px;
 }
 
-<<<<<<< HEAD
-#modal_bot_pw {
-=======
 #bot_pw {
->>>>>>> d559303c2a49ca797eed19acac0efe1047296991
   position: relative;
   left : 8.6%;
   height: 33px;
 }
 
-<<<<<<< HEAD
-#modal_bot_email {
-  position: relative;
-  left : 23%;
-  height: 33px;
-}
-=======
 #botRegister {
  
     margin-left: 80%;
   }
->>>>>>> d559303c2a49ca797eed19acac0efe1047296991
