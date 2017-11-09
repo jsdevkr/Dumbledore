@@ -42,7 +42,7 @@ module.exports = {
           presets: [
             'react',
             'es2015',
-            'es2017'
+            'stage-2'
           ],
           plugins: [
             'transform-regenerator'
