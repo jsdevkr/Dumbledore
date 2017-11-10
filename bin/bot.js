@@ -36,6 +36,7 @@ const webServer = new WebInstance({
   pass: process.env.ADMIN_PASS,
 });
 
+// bots keep
 const bots = {};
 async function createBot() {
   try {
