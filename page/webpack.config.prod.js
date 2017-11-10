@@ -1,4 +1,3 @@
-const webpack = require('webpack');
 const path = require('path');
 require('babel-polyfill');
 
@@ -8,17 +7,6 @@ module.exports = {
     path: path.resolve(__dirname, '../public/dist'),
     filename: 'bundle.js',
     publicPath: '/dist/'
-  },
-  devServer: {
-    filename: 'bundle.js',
-    port: 8080,
-    proxy: {
-      '/': 'http://localhost:1337'
-    },
-    watchOptions: {
-      ignore: [path.resolve('lib/*.js'), path.resolve('server/*.js')],
-      aggregateTimeout: 300
-    }
   },
   module: {
     rules: [
@@ -67,10 +55,6 @@ module.exports = {
       }
     ]
   },
-  devtool: 'eval',
   plugins: [
-    new webpack.DefinePlugin({
-      'process.env.NODE_ENV': JSON.stringify('development')
-    })
   ]
 };

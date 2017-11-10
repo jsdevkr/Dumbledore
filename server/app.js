@@ -1,5 +1,9 @@
 const express = require('express');
 const path = require('path');
+const httpProxy = require('http-proxy');
+
+// parse dashboard
+const ParseDashboard = require('parse-dashboard');
 
 class ServerInstance {
   constructor(settings) {
@@ -11,6 +15,40 @@ class ServerInstance {
       const { settings } = this;
       const port = settings.port || 55555;
       const app = express();
+
+      // Proxy to API server
+      const targetUrl = 'http://localhost:' + (process.env.PARSE_PORT || 1337);
+      const proxy = httpProxy.createProxyServer({
+        target: targetUrl,
+        ws: true
+      });
+      app.use('/api', (req, res) => {
+        proxy.web(req, res, { target: targetUrl });
+      });
+
+      // parse dashboard
+      const dashboard = new ParseDashboard({
+        apps: [
+          {
+            serverURL: settings.serverURL || 'http://localhost:1337/parse',
+            appId: settings.appId || 'myAppId',
+            masterKey: settings.masterKey || 'masterKey',
+            appName: 'dumbledore',
+          }
+        ],
+        users: [
+          {
+            user: settings.user || 'parseapp',
+            pass: settings.pass || 'parsepassword'
+          }
+        ],
+        trustProxy: 1
+      });
+
+      // make the Parse dashboard available at /dashboard
+      app.use('/dashboard', dashboard);
+
+      app.use(express.static(path.join(__dirname, '..', 'public')));
 
       app.get('/', (req, res) => {
         res.sendFile(path.join(__dirname, '../public/index.html'));
