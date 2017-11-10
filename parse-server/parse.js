@@ -3,9 +3,6 @@ const express = require('express');
 const { ParseServer } = require('parse-server');
 const path = require('path');
 
-// parse dashboard
-const ParseDashboard = require('parse-dashboard');
-
 class ParseInstance {
   constructor(settings) {
     this.settings = settings;
@@ -34,27 +31,6 @@ class ParseInstance {
         // Serve the Parse API on the /parse URL prefix
         const mountPath = settings.MOUNT_PATH || '/parse';
         app.use(mountPath, api);
-
-        // parse dashboard
-        const dashboard = new ParseDashboard({
-          apps: [
-            {
-              serverURL: settings.serverURL || 'http://localhost:1337/parse',
-              appId: settings.appId || 'myAppId',
-              masterKey: settings.masterKey || 'masterKey',
-              appName: 'dumbledore',
-            }
-          ],
-          users: [
-            {
-              user: settings.user || 'parseapp',
-              pass: settings.pass || 'parsepassword'
-            }
-          ]
-        }, true); // allowInsecureHTTP
-
-        // make the Parse dashboard available at /dashboard
-        app.use('/dashboard', dashboard);
 
         // Parse Server plays nicely with the rest of your web routes
         app.get('/', function (req, res) {

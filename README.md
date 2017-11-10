@@ -64,7 +64,7 @@ $ npm test
 $ npm install -g pm2
 $ cp ./pm2_sample.json ./pm2.json
 // You need to change `pm2.json`
-$ npm run start (or start-docker)
+$ pm2 start ./pm2.json
 ```
 
 ## Making Dumbledore
