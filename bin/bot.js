@@ -38,20 +38,24 @@ const webServer = new WebInstance({
 
 const bots = {};
 async function createBot() {
-  // dumbledore bot
-  const query = new Parse.Query(DB.BOT.CALL);
-  await query.each((o) => {
-    const token = o.get(DB.BOT.BOT_API_KEY);
-    const name = o.get(DB.BOT.BOT_NAME);
+  try {
+    // dumbledore bot
+    const query = new Parse.Query(DB.BOT.CALL);
+    await query.each((o) => {
+      const token = o.get(DB.BOT.BOT_API_KEY);
+      const name = o.get(DB.BOT.BOT_NAME);
 
-    if (bots[token]) return;
+      if (bots[token]) return;
 
-    // new
-    bots[token] = new Dumbledore({ token, name });
-    bots[token].run().then(() => {
-      console.log('Start *Dumbledore [' + name + ']* on your slack channel.');
-    }, console.error);
-  });
+      // new
+      bots[token] = new Dumbledore({ token, name });
+      bots[token].run().then(() => {
+        console.log('Start *Dumbledore [' + name + ']* on your slack channel.');
+      }, console.error);
+    });
+  } catch (e) {
+    console.log('Start *Dumbledore error*', e);
+  }
 }
 
 async function startBot() {
