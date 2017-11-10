@@ -9,6 +9,7 @@
     "posttest": "mongodb-runner stop",
     "lint": "eslint -c .eslintrc .",
     "lintfix": "eslint -c .eslintrc . --fix",
+    "postinstall": "npm run build",
     "start": "node bin/bot.js",
     "predev": "mongodb-runner start",
     "dev": "npm-run-all --parallel dev:*",

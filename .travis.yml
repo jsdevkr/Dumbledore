@@ -4,8 +4,6 @@ node_js:
 cache:
   directories:
   - node_modules
-before_script:
-  - npm run build
 env:
   global:
   - BOT_API_KEY=eG94Yi0yNTQwNTc5Mjg5ODAtMDE0TU4zY2FrQmlhS3NXSnJJNEw5WGEw
