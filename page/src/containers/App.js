@@ -14,6 +14,7 @@ class App extends Component {
   render() {
     return (
       <div id="container">
+
         <NavBar />
         <Grid centered>
           <Grid.Row>
