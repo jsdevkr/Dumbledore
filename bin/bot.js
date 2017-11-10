@@ -24,13 +24,17 @@ const parseServer = new ParseInstance({
   serverURL: process.env.SERVER_URL,
   port: process.env.PARSE_PORT,
   mountPath: process.env.MOUNT_PATH,
+});
+
+// web server
+const webServer = new WebInstance({
+  port: process.env.PORT,
+  appId: process.env.APP_ID,
+  masterKey: process.env.MASTER_KEY,
+  serverURL: process.env.PARSE_EXTERNAL_URL || process.env.SERVER_URL,
   user: process.env.ADMIN_NAME,
   pass: process.env.ADMIN_PASS,
 });
-
-// parse js sdk
-Parse.initialize(process.env.APP_ID || 'myAppId', null, process.env.MASTER_KEY || 'masterKey');
-Parse.serverURL = process.env.SERVER_URL || 'http://localhost:1337/parse';
 
 const bots = {};
 async function createBot() {
@@ -53,12 +57,11 @@ async function createBot() {
 async function startBot() {
   try {
     await parseServer.create();
+    await webServer.create();
 
-    // web server
-    const webServer = new WebInstance({
-      port: process.env.PORT
-    });
-    webServer.create();
+    // parse js sdk
+    Parse.initialize(process.env.APP_ID || 'myAppId', null, process.env.MASTER_KEY || 'masterKey');
+    Parse.serverURL = process.env.SERVER_URL || 'http://localhost:1337/parse';
 
     if (process.env.NODE_ENV === 'development') {
       const query = new Parse.Query(DB.BOT.CALL);

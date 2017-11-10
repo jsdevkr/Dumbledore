@@ -2,6 +2,9 @@ const express = require('express');
 const path = require('path');
 const httpProxy = require('http-proxy');
 
+// parse dashboard
+const ParseDashboard = require('parse-dashboard');
+
 class ServerInstance {
   constructor(settings) {
     this.settings = settings;
@@ -22,6 +25,27 @@ class ServerInstance {
       app.use('/api', (req, res) => {
         proxy.web(req, res, { target: targetUrl });
       });
+
+      // parse dashboard
+      const dashboard = new ParseDashboard({
+        apps: [
+          {
+            serverURL: settings.serverURL || 'http://localhost:1337/parse',
+            appId: settings.appId || 'myAppId',
+            masterKey: settings.masterKey || 'masterKey',
+            appName: 'dumbledore',
+          }
+        ],
+        users: [
+          {
+            user: settings.user || 'parseapp',
+            pass: settings.pass || 'parsepassword'
+          }
+        ]
+      }, true); // allowInsecureHTTP
+
+      // make the Parse dashboard available at /dashboard
+      app.use('/dashboard', dashboard);
 
       app.use(express.static(path.join(__dirname, '..', 'public')));
 
