@@ -54,7 +54,7 @@ async function createBot() {
       }, console.error);
     });
   } catch (e) {
-    console.log('Start *Dumbledore error*', e);
+    console.log('Start *Dumbledore* createBot error', e);
   }
 }
 
