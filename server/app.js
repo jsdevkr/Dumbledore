@@ -41,8 +41,9 @@ class ServerInstance {
             user: settings.user || 'parseapp',
             pass: settings.pass || 'parsepassword'
           }
-        ]
-      }, true); // allowInsecureHTTP
+        ],
+        trustProxy: 1
+      });
 
       // make the Parse dashboard available at /dashboard
       app.use('/dashboard', dashboard);
