@@ -56,7 +56,7 @@ async function startBot() {
 
     // web server
     const webServer = new WebInstance({
-      setting: process.env.PORT
+      port: process.env.PORT
     });
     webServer.create();
 
