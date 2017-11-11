@@ -75,7 +75,11 @@ module.exports = {
       template: path.resolve(__dirname, '../public/index.html'),
     }),
     new webpack.DefinePlugin({
-      'process.env.NODE_ENV': JSON.stringify('development')
+      'process.env': {
+        NODE_ENV: JSON.stringify(process.env.NODE_ENV || 'development'),
+        APP_ID: JSON.stringify(process.env.APP_ID || 'myAppId'),
+        SERVER_URL: JSON.stringify(process.env.SERVER_URL || 'http://localhost:1337/parse'),
+      }
     })
   ]
 };

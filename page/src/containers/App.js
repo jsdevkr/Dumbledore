@@ -8,7 +8,7 @@ import './App.css';
 
 class App extends Component {
   componentDidMount() {
-    console.log('cdm');
+    console.log(process.env);
   }
 
   render() {

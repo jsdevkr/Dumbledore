@@ -1,3 +1,10 @@
+import Parse from 'parse';
+
+const { APP_ID, SERVER_URL } = process.env;
+
+Parse.initialize(APP_ID);
+Parse.serverURL = SERVER_URL;
+
 async function fakeAsync(delayTime = 1000) {
   await new Promise(resolve => setTimeout(resolve, delayTime));
 }
