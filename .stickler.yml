@@ -2,6 +2,7 @@ files:
   ignore:
     - 'bower_components/*'
     - 'node_modules/*'
+    - 'public/*'
 linters:
     eslint:
         config: './.eslintrc'
