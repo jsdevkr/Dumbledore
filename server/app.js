@@ -51,6 +51,7 @@ class ServerInstance {
       app.use(express.static(path.join(__dirname, '..', 'public')));
 
       app.get('/', (req, res) => {
+        console.log('test');
         res.sendFile(path.join(__dirname, '../public/index.html'));
       });
       this.server = app.listen(port, () => {

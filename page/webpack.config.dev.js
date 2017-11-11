@@ -13,12 +13,13 @@ module.exports = {
     filename: 'bundle.js',
     port: 8080,
     proxy: {
-      '/': 'http://localhost:1337'
+      '/api': 'http://localhost:1337'
     },
     watchOptions: {
       ignore: [path.resolve('lib/*.js'), path.resolve('server/*.js')],
       aggregateTimeout: 300
-    }
+    },
+    contentBase: './public'
   },
   module: {
     rules: [
