@@ -1,11 +1,11 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { Button, Header, Icon, Modal, Form } from 'semantic-ui-react';
-import './LoginModal.css';
+import './RegisterModal.css';
 
-const LoginModal = ({ open, closeHandler }) => (
-  <Modal id="login__modal" size="mini" open={open}>
-    <Header icon="fort awesome" content="LogIn" />
+const registerModal = ({ open, closeHandler }) => (
+  <Modal id="register__modal" size="mini" open={open}>
+    <Header icon="user plus" content="Bot-register" />
     <Modal.Content>
       <Form>
         <Form.Field required>
@@ -16,10 +16,14 @@ const LoginModal = ({ open, closeHandler }) => (
           <label>password</label>
           <input placeholder="password" id="password" />
         </Form.Field>
+        <Form.Field required>
+          <label>retype password</label>
+          <input placeholder="retype password" id="retype-password" />
+        </Form.Field>
       </Form>
     </Modal.Content>
     <Modal.Actions>
-      <Button color="grey" onClick={() => closeHandler('loginModal')}>
+      <Button color="grey" onClick={() => closeHandler('registerModal')}>
         <Icon name="cancel" /> cancel
       </Button>
       <Button color="black" >
@@ -29,9 +33,9 @@ const LoginModal = ({ open, closeHandler }) => (
   </Modal>
 );
 
-LoginModal.propTypes = {
+registerModal.propTypes = {
   closeHandler: PropTypes.func.isRequired,
   open: PropTypes.bool.isRequired
 };
 
-export default LoginModal;
+export default registerModal;

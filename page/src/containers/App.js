@@ -1,8 +1,8 @@
 import React, { Component } from 'react';
 import { Grid } from 'semantic-ui-react';
 import 'semantic-ui-css/semantic.min.css';
-import NavBar from '../components/NavBar';
 import Header from '../components/Header';
+import NavBar from './NavBar';
 import TableContainer from './TableContainer';
 import './App.css';
 
