@@ -1,7 +1,6 @@
 describe('In helper', function () {
-  const stringHandler = require('../lib/helper/stringHandler');
   const SlackBot = require('../lib/helper/slackBot');
-  const { atob } = require('../lib/helper/common');
+  const { atob, capitalizeFirstLetter } = require('../lib/helper/common');
   const { OUTPUT } = require('../lib/word.js');
   let token;
   let slackBot;
@@ -24,7 +23,7 @@ describe('In helper', function () {
   });
 
   it('First letter should be capitalized', () => {
-    const first = stringHandler.capitalizeFirstLetter('letter').charCodeAt(0);
+    const first = capitalizeFirstLetter('letter').charCodeAt(0);
     let check = false;
 
     if (first < 91 && first > 64) check = true;
@@ -34,7 +33,6 @@ describe('In helper', function () {
 
   it('Any functions should not be `undefined` in slackBot', () => {
     expect(slackBot.awardPointsCallback).toBeDefined();
-    expect(slackBot.deductPointsCallback).toBeDefined();
     expect(slackBot.getAllHousePointsCallback).toBeDefined();
     expect(slackBot.announcePlainString).toBeDefined();
     expect(slackBot.getUserList).toBeDefined();

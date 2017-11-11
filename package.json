@@ -11,7 +11,7 @@
     "lintfix": "eslint -c .eslintrc . --fix",
     "postinstall": "npm run build",
     "start": "better-npm-run start",
-    "predev": "mongodb-runner start",
+    "predev": "npm run lint && mongodb-runner start",
     "dev": "npm-run-all --parallel dev:*",
     "dev:server": "better-npm-run dev:server",
     "dev:client": "better-npm-run dev:client",
