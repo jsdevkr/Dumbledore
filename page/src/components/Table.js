@@ -26,10 +26,10 @@ const Table = ({ data, fetchStudents, selectable }) => {
       <STable.Cell>{third.point}</STable.Cell>
     </STable.Row>
   ) : '';
-  const Etc = data.slice(3).map(el => {
+  const Etc = data.slice(3).map((el, idx) => {
     return (
       <STable.Row key={el.id} onClick={() => fetchStudents(el.id)}>
-        <STable.Cell>{el.id + 1}</STable.Cell>
+        <STable.Cell>{idx + 4}</STable.Cell>
         <STable.Cell>{el.name}</STable.Cell>
         <STable.Cell>{el.point}</STable.Cell>
       </STable.Row>

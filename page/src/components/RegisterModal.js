@@ -1,13 +1,18 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { Button, Header, Icon, Modal, Form } from 'semantic-ui-react';
+import { Button, Header, Icon, Modal, Form, Message } from 'semantic-ui-react';
 import './RegisterModal.css';
 
 const registerModal = ({ open, closeHandler }) => (
   <Modal id="register__modal" size="mini" open={open}>
-    <Header icon="user plus" content="Bot-register" />
+    <Header icon="user plus" content="register" />
     <Modal.Content>
       <Form>
+        <Message
+          icon="help"
+          header="before registring..."
+          content="please check api key of your bot"
+        />
         <Form.Field required>
           <label>api key</label>
           <input placeholder="api key" id="key" />
