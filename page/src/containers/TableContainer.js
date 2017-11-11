@@ -59,8 +59,6 @@ class TableContainer extends Component {
 
   render() {
     const { bots, students } = this.state;
-    console.log(bots);
-    console.log(students);
     let botsComponent = '';
     let studentsComponent = '';
 
