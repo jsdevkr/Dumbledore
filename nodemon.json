@@ -17,8 +17,7 @@
   },
   "ext": "js json",
   "events": {
-    "start": "npm run lint",
     "restart": "npm run lint",
-    "exit": "mongodb-runner stop"
+    "quit": "mongodb-runner stop"
   }
 }

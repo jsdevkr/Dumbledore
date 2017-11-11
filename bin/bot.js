@@ -49,7 +49,7 @@ async function createBot() {
       if (bots[token]) return;
 
       // new
-      bots[token] = new Dumbledore({ token, name });
+      bots[token] = new Dumbledore({ token, name, id: o.id });
       bots[token].run().then(() => {
         console.log('Start *Dumbledore [' + name + ']* on your slack channel.');
       }, console.error);
