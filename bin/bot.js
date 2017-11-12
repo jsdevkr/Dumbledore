@@ -3,7 +3,7 @@ const ParseInstance = require('../parse-server/parse');
 const WebInstance = require('../server/app');
 const Parse = require('parse/node');
 const { atob } = require('../lib/helper/common');
-const { DB } = require('../lib/word');
+const { DB } = require('../lib/const');
 
 /**
  * Environment variables used to configure the bot:
@@ -74,6 +74,7 @@ async function startBot() {
 
       if (!botCount) {
         const name = process.env.BOT_NAME;
+        const password = process.env.BOT_PASSWORD;
 
         // base64 encoded token
         let token = process.env.BOT_API_KEY;
@@ -82,7 +83,8 @@ async function startBot() {
         const obj = new Parse.Object(DB.BOT.CALL);
         await obj.save({
           [DB.BOT.BOT_NAME]: name,
-          [DB.BOT.BOT_API_KEY]: token
+          [DB.BOT.BOT_API_KEY]: token,
+          [DB.BOT.PASSWORD]: password // todo: add encrypt
         });
       }
     }

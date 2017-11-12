@@ -1,4 +1,5 @@
 import Parse from 'parse';
+import { DB } from '../../../lib/const';
 
 const { APP_ID, SERVER_URL } = process.env;
 
@@ -53,9 +54,25 @@ export async function getStudent(id) {
   return studentDummy;
 }
 
-export function createBot(key, password) {
-  const response = { key, password };
-  // Todo: create logic for add bot
-  return response;
+export async function createBot(key, name, password) {
+  const {
+    CALL, BOT_API_KEY, BOT_NAME, PASSWORD
+  } = DB.BOT;
+  const query = new Parse.Query(DB.BOT.CALL);
+  query.equalTo(BOT_API_KEY, key);
+
+  try {
+    const isExist = await query.find();
+    if (isExist) {
+      const bot = new Parse.Object(CALL);
+      await bot.save({
+        [BOT_NAME]: name,
+        [BOT_API_KEY]: key,
+        [PASSWORD]: password,
+      });
+    }
+  } catch (error) {
+    console.log(error);
+  }
 }
 

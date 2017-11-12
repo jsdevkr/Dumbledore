@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import './NavBar.css';
 import LoginModal from '../components/LoginModal';
 import RegisterModal from '../components/RegisterModal';
+import { createBot } from '../helper/fetch';
 
 class NavBar extends Component {
   constructor(props) {
@@ -21,6 +22,11 @@ class NavBar extends Component {
 
   handleKeyDown() {
     console.log('keyDown');
+  }
+
+  async handleRegister(key, botName, password) {
+    console.log('test');
+    await createBot(key, botName, password);
   }
 
   render() {
@@ -47,7 +53,7 @@ class NavBar extends Component {
           >signIn
           </div>
         </div>
-        <RegisterModal open={registerModal} closeHandler={this.handleClick} />
+        <RegisterModal open={registerModal} closeHandler={this.handleClick} handleRegister={this.handleRegister} />
         <LoginModal open={loginModal} closeHandler={this.handleClick} />
       </div>
     );
