@@ -38,7 +38,7 @@ describe('In helper', function () {
     expect(slackBot.getName).toBeDefined();
   });
 
-  it('Slack bot should say hello', (done) => {
+  it('Slack bot should say hello', () => {
     let check = false;
 
     slackBot.announcePlainString(fake, OUTPUT.SAY_HELLO).then(() => {
@@ -48,7 +48,6 @@ describe('In helper', function () {
         console.log(err);
       }
       expect(check).toBe(true);
-      done();
     });
   });
 
@@ -69,7 +68,7 @@ describe('In helper', function () {
     });
   });
 
-  it('Slack bot say awarding message when give points to user', (done) => {
+  it('Slack bot say awarding message when give points to user', () => {
     const user = { userName: 'test', point: 1 };
     let check = false;
 
@@ -80,7 +79,6 @@ describe('In helper', function () {
         console.log(err);
       }
       expect(check).toBe(true);
-      done();
     });
   });
 });
