@@ -9,7 +9,6 @@ describe('bot', function () {
 
     const dumbledore = new Dumbledore({
       token,
-      dbPath: process.env.BOT_DB_PATH,
       name: process.env.BOT_NAME,
       githubChannel: process.env.BOT_GITHUB_CHANNEL_ID
     });
