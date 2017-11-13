@@ -13,6 +13,7 @@ class NavBar extends Component {
     };
 
     this.handleClick = this.handleClick.bind(this);
+    this.handleRegister = this.handleRegister.bind(this);
   }
   handleClick(name) {
     this.setState({
@@ -25,8 +26,10 @@ class NavBar extends Component {
   }
 
   async handleRegister(key, botName, password) {
-    console.log('test');
     await createBot(key, botName, password);
+    this.setState({
+      registerModal: false
+    });
   }
 
   render() {

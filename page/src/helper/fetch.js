@@ -25,18 +25,13 @@ async function fakeAsync(delayTime = 1000) {
 }
 
 export async function getBot() {
-  // Todo: create logic for get bot
-  const botDummy = new Array(10).fill(undefined).map((e, idx) => (
-    {
-      id: idx,
-      name: `bot ${idx}`,
-      point: `${idx * 100}`
-    }
-  )).sort((a, b) => b.point - a.point);
+  const bot = Parse.Object.extend('Bot');
+  const botQuery = new Parse.Query(bot);
+  botQuery.select('botName');
 
-  await fakeAsync();
+  const result = await botQuery.find();
 
-  return botDummy;
+  return result.map(e => ({ id: e.id, botName: e.attributes.botName }));
 }
 
 export async function getStudent(id) {
