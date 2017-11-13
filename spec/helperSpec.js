@@ -45,7 +45,7 @@ describe('In helper', function () {
       try {
         check = true;
       } catch (err) {
-        console.error(err);
+        console.log(err);
       }
       expect(check).toBe(true);
       done();
@@ -64,6 +64,21 @@ describe('In helper', function () {
         check = true;
       }
 
+      expect(check).toBe(true);
+      done();
+    });
+  });
+
+  it('Slack bot say awarding message when give points to user', (done) => {
+    const user = { userName: 'test', point: 1 };
+    let check = false;
+
+    slackBot.awardPointsCallback(fake, OUTPUT.pointTo(user)).then(() => {
+      try {
+        check = true;
+      } catch (err) {
+        console.log(err);
+      }
       expect(check).toBe(true);
       done();
     });
