@@ -54,7 +54,8 @@ class ServerInstance {
         res.sendFile(path.join(__dirname, '../public/index.html'));
       });
       this.server = app.listen(port, () => {
-        console.log('server run...' + port + '.');
+        console.log('web-server running on port ' + port + '.');
+        console.log('parse-dashboard on ' + port + '/dashboard');
         resolve();
       });
     });
