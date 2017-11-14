@@ -61,7 +61,6 @@ typings/
 
 .idea
 .DS_Store
-pm2.json
-data/dumbledore.db
 package-lock.json
 bundle.js
+dist/

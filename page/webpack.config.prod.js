@@ -9,18 +9,6 @@ module.exports = {
     filename: 'bundle.js',
     publicPath: '/dist/'
   },
-  devServer: {
-    filename: 'bundle.js',
-    port: 8080,
-    proxy: {
-      '/api': 'http://localhost:1337'
-    },
-    watchOptions: {
-      ignore: [path.resolve('lib/*.js'), path.resolve('server/*.js')],
-      aggregateTimeout: 300
-    },
-    contentBase: './public'
-  },
   module: {
     rules: [
       {
@@ -68,13 +56,17 @@ module.exports = {
       }
     ]
   },
-  devtool: 'eval',
+  devtool: 'sourc-map',
   plugins: [
+    new webpack.optimize.UglifyJsPlugin({
+      ecma: 8,
+      sourceMap: true,
+    }),
     new webpack.DefinePlugin({
       'process.env': {
-        NODE_ENV: JSON.stringify(process.env.NODE_ENV || 'development'),
+        NODE_ENV: JSON.stringify(process.env.NODE_ENV || 'production'),
         APP_ID: JSON.stringify(process.env.APP_ID || 'myAppId'),
-        PARSE_EXTERNAL_URL: JSON.stringify(process.env.PARSE_EXTERNAL_URL || 'http://localhost:1337/parse'),
+        PARSE_EXTERNAL_URL: JSON.stringify(process.env.PARSE_EXTERNAL_URL || 'https://localhost:1337/parse'),
       }
     })
   ]

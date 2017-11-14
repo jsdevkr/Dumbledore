@@ -1,9 +1,9 @@
 import React, { Component } from 'react';
 import { Grid } from 'semantic-ui-react';
 import 'semantic-ui-css/semantic.min.css';
-import NavBar from '../components/NavBar';
 import Header from '../components/Header';
-import TableContainer from './TableContainer';
+import NavBar from './NavBar';
+import Body from './Body';
 import './App.css';
 
 class App extends Component {
@@ -19,7 +19,7 @@ class App extends Component {
           <Grid.Row>
             <Header />
           </Grid.Row>
-          <TableContainer />
+          <Body />
         </Grid>
       </div>
     );

@@ -5,12 +5,11 @@ A Slack Bot called Dumbledore that lets your team join houses and award house po
 
 ## Installation 
 * clone this reposity to the machine you want to run the server on.
-* If you do not have node `>= 7.0.0` and npm installed on your machine install it
+* If you do not have node `>= 8.0.0` and npm installed on your machine install it
 * in the dumbledore directory run:
 
 ```bash
 $ npm install
-$ cp ./data/dumbledore_sample.db ./data/dumbledore.db
 ```
 
 ## Running Dumbledore
@@ -28,13 +27,13 @@ To allow the Dumbledore to connect your Slack channel you must provide him an AP
 You will find your API key under the field API Token, copy it in a safe place and get ready to use it.
 
 
-## Configuration
+
+## Configuration - for development
 Dumbledore is configurable through environment variables. There are several variable available:
 
 | Environment variable | Description |
 |----------------------|-------------|
 | `BOT_API_KEY` | this variable is mandatory and must be used to specify the API token needed by the bot to connect to your Slack organization |
-| `BOT_DB_PATH` | optional variable that allows you to use a different database or to move the default one to a different path |
 | `BOT_NAME` | the name of your bot, it’s optional and it will default to dumbledore |
 | `BOT_GITHUB_CHANNEL_ID` | the channel id for your teams github tracker(optional) |
 
@@ -57,14 +56,29 @@ $ cp ./.env_sample ./.env
 $ npm test
 ```
 
+
+
+## Configuration - for Production
+Dumbledore use [parse-server](https://github.com/parse-community/parse-server) for backend.
+
+| Environment variable | Description |
+|----------------------|-------------|
+| `DATABASE_URI` | mongodb connection string |
+| `APP_ID` | the application id for backend parse-server |
+| `MASTER_KEY` | the masterkey for backend parse-server |
+| `PORT` | the external port for web-server |
+| `PARSE_EXTERNAL_URL` | the external parse-server url by web-server proxy. ex) https://yourdomain/api/parse |
+| `ADMIN_NAME` | the id for signin to dashboard |
+| `ADMIN_PASS` | the password for signin to dashboard |
+
 ## Production
-* We recommend the pm2:
+* Default is `npm start`, but you can also use the pm2:
+* Dumbledore needs a mongodb for production.
 
 ```bash
-$ npm install -g pm2
-$ cp ./pm2_sample.json ./pm2.json
-// You need to change `pm2.json`
-$ npm run start (or start-docker)
+$ cp ./.env_sample ./.env
+// You need to change `.env`
+$ npm start
 ```
 
 ## Making Dumbledore

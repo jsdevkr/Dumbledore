@@ -1,0 +1,15 @@
+#navbar {
+  background-color: black;
+  display: flex;
+  align-items: center;
+  height: 60px;
+  padding: 10px;
+  color: white;
+  font-size: 1.3rem;
+}
+
+#btn__group {
+  margin-left: auto;
+  display: flex;
+}
+
