@@ -8,7 +8,9 @@ import './App.css';
 
 class App extends Component {
   componentDidMount() {
-    console.log('cdm');
+    console.log('***************************');
+    console.log('* WELCOME TO THE HOGWARTS *');
+    console.log('***************************');
   }
 
   render() {
@@ -19,7 +21,9 @@ class App extends Component {
           <Grid.Row>
             <Header />
           </Grid.Row>
-          <Body />
+          <Grid.Row>
+            <Body />
+          </Grid.Row>
         </Grid>
       </div>
     );

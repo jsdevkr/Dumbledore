@@ -1,14 +1,11 @@
 import Parse from 'parse';
+import _ from 'lodash';
 import { DB } from '../../../lib/const';
 
 const { APP_ID, PARSE_EXTERNAL_URL } = process.env;
 
 Parse.initialize(APP_ID);
 Parse.serverURL = PARSE_EXTERNAL_URL;
-
-async function fakeAsync(delayTime = 1000) {
-  await new Promise(resolve => setTimeout(resolve, delayTime));
-}
 
 export async function getBot() {
   const bot = Parse.Object.extend('Bot');
@@ -20,19 +17,18 @@ export async function getBot() {
   return result.map(e => ({ id: e.id, botName: e.attributes.botName }));
 }
 
-export async function getStudent(id) {
-  // Todo: create logic for get student
-  const studentDummy = new Array(10).fill(undefined).map((e, idx) => (
-    {
-      id: idx,
-      name: `student ${idx}`,
-      point: `${id * 10}`
-    }
-  )).sort((a, b) => b.point - a.point);
+export async function getStudent(botId) {
+  const student = Parse.Object.extend('Student');
+  const studentQuery = new Parse.Query(student);
+  studentQuery.equalTo('botId', botId).select('userName', 'point');
 
-  await fakeAsync();
+  const result = await studentQuery.find();
 
-  return studentDummy;
+  return _.sortBy(result.map(e => ({
+    id: e.id,
+    userName: e.attributes.userName,
+    point: e.attributes.point
+  })), (result, t => -t.point));
 }
 
 export async function createBot(key, name, password) {
