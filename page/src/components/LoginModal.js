@@ -4,7 +4,7 @@ import { Button, Header, Icon, Modal, Form } from 'semantic-ui-react';
 import './LoginModal.css';
 
 const LoginModal = ({ open, closeHandler }) => (
-  <Modal id="login__modal" size="mini" open={open}>
+  <Modal id="login__modal" size="mini" open={open} onClose={() => closeHandler('loginModal')}>
     <Header icon="fort awesome" content="LogIn" />
     <Modal.Content>
       <Form>

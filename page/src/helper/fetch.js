@@ -1,4 +1,5 @@
 import Parse from 'parse';
+import { DB } from '../../../lib/const';
 
 const { APP_ID, SERVER_URL } = process.env;
 
@@ -24,18 +25,13 @@ async function fakeAsync(delayTime = 1000) {
 }
 
 export async function getBot() {
-  // Todo: create logic for get bot
-  const botDummy = new Array(10).fill(undefined).map((e, idx) => (
-    {
-      id: idx,
-      name: `bot ${idx}`,
-      point: `${idx * 100}`
-    }
-  )).sort((a, b) => b.point - a.point);
+  const bot = Parse.Object.extend('Bot');
+  const botQuery = new Parse.Query(bot);
+  botQuery.select('botName');
 
-  await fakeAsync();
+  const result = await botQuery.find();
 
-  return botDummy;
+  return result.map(e => ({ id: e.id, botName: e.attributes.botName }));
 }
 
 export async function getStudent(id) {
@@ -53,9 +49,25 @@ export async function getStudent(id) {
   return studentDummy;
 }
 
-export function createBot(key, password) {
-  const response = { key, password };
-  // Todo: create logic for add bot
-  return response;
+export async function createBot(key, name, password) {
+  const {
+    CALL, BOT_API_KEY, BOT_NAME, PASSWORD
+  } = DB.BOT;
+  const query = new Parse.Query(DB.BOT.CALL);
+  query.equalTo(BOT_API_KEY, key);
+
+  try {
+    const isExist = await query.find();
+    if (isExist) {
+      const bot = new Parse.Object(CALL);
+      await bot.save({
+        [BOT_NAME]: name,
+        [BOT_API_KEY]: key,
+        [PASSWORD]: password,
+      });
+    }
+  } catch (error) {
+    console.log(error);
+  }
 }
 
