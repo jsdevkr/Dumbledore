@@ -1,24 +1,10 @@
 import Parse from 'parse';
 import { DB } from '../../../lib/const';
 
-const { APP_ID, SERVER_URL } = process.env;
+const { APP_ID, PARSE_EXTERNAL_URL } = process.env;
 
 Parse.initialize(APP_ID);
-Parse.serverURL = SERVER_URL;
-
-// const user = Parse.Object.extend('Student');
-// const userQuery = new Parse.Query(user);
-// userQuery.get('4ll0bZR4fW', {
-//   success: el => {
-//     console.log(el.get('userName'));
-//   },
-//   error: (object, error) => {
-//     console.log(object);
-//     console.log(error);
-//     // The object was not retrieved successfully.
-//     // error is a Parse.Error with an error code and message.
-//   }
-// });
+Parse.serverURL = PARSE_EXTERNAL_URL;
 
 async function fakeAsync(delayTime = 1000) {
   await new Promise(resolve => setTimeout(resolve, delayTime));
