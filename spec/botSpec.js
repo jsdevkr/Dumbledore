@@ -1,7 +1,7 @@
 describe('bot', function () {
   const Dumbledore = require('../lib/dumbledore');
   const { atob } = require('../lib/helper/common');
-  const { DB } = require('../lib/word');
+  const { DB } = require('../lib/const');
   let dumbledore;
 
   const fake = {

@@ -1,7 +1,7 @@
 describe('In helper', function () {
   const SlackBot = require('../lib/helper/slackBot');
   const { atob, capitalizeFirstLetter } = require('../lib/helper/common');
-  const { OUTPUT } = require('../lib/word.js');
+  const { OUTPUT } = require('../lib/const');
   let token;
   let slackBot;
 

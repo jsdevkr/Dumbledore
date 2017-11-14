@@ -3,12 +3,12 @@ import { Grid } from 'semantic-ui-react';
 import 'semantic-ui-css/semantic.min.css';
 import Header from '../components/Header';
 import NavBar from './NavBar';
-import TableContainer from './TableContainer';
+import Body from './Body';
 import './App.css';
 
 class App extends Component {
   componentDidMount() {
-    console.log(process.env);
+    console.log('cdm');
   }
 
   render() {
@@ -19,7 +19,7 @@ class App extends Component {
           <Grid.Row>
             <Header />
           </Grid.Row>
-          <TableContainer />
+          <Body />
         </Grid>
       </div>
     );
