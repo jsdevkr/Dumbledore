@@ -1,0 +1,14 @@
+diff a/page/src/components/NavBar.css b/page/src/components/NavBar.css	(rejected hunks)
+@@ -52,6 +52,12 @@
+   height: 33px;
+ }
+ 
++#bot_email {
++  position: relative;
++  left : 23%;
++  height: 33px;
++}
++
+ #botRegister {
+  
+     margin-left: 80%;
