@@ -1,3 +1,4 @@
+const webpack = require('webpack');
 const path = require('path');
 require('babel-polyfill');
 
@@ -55,6 +56,18 @@ module.exports = {
       }
     ]
   },
+  devtool: 'sourc-map',
   plugins: [
+    new webpack.optimize.UglifyJsPlugin({
+      ecma: 8,
+      sourceMap: true,
+    }),
+    new webpack.DefinePlugin({
+      'process.env': {
+        NODE_ENV: JSON.stringify(process.env.NODE_ENV || 'development'),
+        APP_ID: JSON.stringify(process.env.APP_ID || 'myAppId'),
+        SERVER_URL: JSON.stringify(process.env.SERVER_URL || 'http://localhost:1337/parse'),
+      }
+    })
   ]
 };
