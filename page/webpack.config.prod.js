@@ -66,7 +66,7 @@ module.exports = {
       'process.env': {
         NODE_ENV: JSON.stringify(process.env.NODE_ENV || 'production'),
         APP_ID: JSON.stringify(process.env.APP_ID || 'myAppId'),
-        SERVER_URL: JSON.stringify(process.env.SERVER_URL || 'http://localhost:1337/parse'),
+        PARSE_EXTERNAL_URL: JSON.stringify(process.env.PARSE_EXTERNAL_URL || 'https://localhost:1337/parse'),
       }
     })
   ]

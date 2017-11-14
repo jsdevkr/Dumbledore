@@ -9,7 +9,7 @@ const Header = () => {
       <Image src={pictogram} alt="pictogram" centered />
       <Statistic>
         <Statistic.Value text>
-          Dumbledor
+          Dumbledore
         </Statistic.Value>
         <Statistic.Label>
           Welcome To <br />The Hogwarts
