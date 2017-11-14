@@ -15,6 +15,10 @@ function createServer() {
     }
 
     try {
+      // parse js sdk
+      Parse.initialize(process.env.APP_ID || 'myAppId', null, process.env.MASTER_KEY || 'masterKey');
+      Parse.serverURL = process.env.SERVER_URL || 'http://localhost:1337/parse';
+
       server = new ParseInstance({
         databaseURI: process.env.DATABASE_URI,
         cloud: process.env.CLOUD_CODE_MAIN,
@@ -28,9 +32,6 @@ function createServer() {
       });
 
       server.create().then(() => {
-        // parse js sdk
-        Parse.initialize(process.env.APP_ID || 'myAppId', null, process.env.MASTER_KEY || 'masterKey');
-        Parse.serverURL = process.env.SERVER_URL || 'http://localhost:1337/parse';
         resolve();
       }, reject);
     } catch (error) {
