@@ -1,11 +1,20 @@
 import React from 'react';
-import pictogram from '../../static/pictogram.svg';
+import { Statistic, Image } from 'semantic-ui-react';
+import character from '../../static/character.svg';
 import './Header.css';
 
 const Header = () => {
   return (
     <div id="header">
-      <img src={pictogram} alt="pictogram" />
+      <Image src={character} alt="character" centered />
+      <Statistic>
+        <Statistic.Value text>
+          Dumbledore
+        </Statistic.Value>
+        <Statistic.Label>
+          Welcome To <br />The Hogwarts
+        </Statistic.Label>
+      </Statistic>
     </div>
   );
 };

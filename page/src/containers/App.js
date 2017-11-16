@@ -1,14 +1,16 @@
 import React, { Component } from 'react';
 import { Grid } from 'semantic-ui-react';
 import 'semantic-ui-css/semantic.min.css';
-import NavBar from '../components/NavBar';
 import Header from '../components/Header';
-import TableContainer from './TableContainer';
+import NavBar from './NavBar';
+import Body from './Body';
 import './App.css';
 
 class App extends Component {
   componentDidMount() {
-    console.log('cdm');
+    console.log('***************************');
+    console.log('* WELCOME TO THE HOGWARTS *');
+    console.log('***************************');
   }
 
   render() {
@@ -16,11 +18,13 @@ class App extends Component {
       <div id="container">
 
         <NavBar />
-        <Grid centered>
+        <Grid centered stackable stretched>
           <Grid.Row>
             <Header />
           </Grid.Row>
-          <TableContainer />
+          <Grid.Row>
+            <Body />
+          </Grid.Row>
         </Grid>
       </div>
     );

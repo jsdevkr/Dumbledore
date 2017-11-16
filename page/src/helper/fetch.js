@@ -1,40 +1,77 @@
-async function fakeAsync(delayTime = 1000) {
-  await new Promise(resolve => setTimeout(resolve, delayTime));
+import Parse from 'parse';
+import _ from 'lodash';
+import { DB } from '../../../lib/const';
+
+const { APP_ID, PARSE_EXTERNAL_URL } = process.env;
+
+Parse.initialize(APP_ID);
+Parse.serverURL = PARSE_EXTERNAL_URL;
+
+function checkToken(token) {
+  return new Promise((resolve, reject) => {
+    const xhttp = new XMLHttpRequest();
+
+    xhttp.onreadystatechange = function () {
+      if (!this.responseText) return;
+      const res = JSON.parse(this.responseText);
+
+      if (this.readyState === 4 && this.status === 200 && res.ok) {
+        resolve(res);
+      } else if (res.error) {
+        reject(new Error(res.error));
+      }
+    };
+    xhttp.open('GET', `https://slack.com/api/auth.test?token=${token}`, true);
+    xhttp.send();
+  });
 }
 
 export async function getBot() {
-  // Todo: create logic for get bot
-  const botDummy = new Array(10).fill(undefined).map((e, idx) => (
-    {
-      id: idx,
-      name: `bot ${idx}`,
-      point: `${idx * 100}`
-    }
-  )).sort((a, b) => b.point - a.point);
+  const bot = Parse.Object.extend('Bot');
+  const botQuery = new Parse.Query(bot);
+  botQuery.select('botName');
 
-  await fakeAsync();
+  const result = await botQuery.find();
 
-  return botDummy;
+  return result.map(e => ({ id: e.id, botName: e.attributes.botName }));
 }
 
-export async function getStudent(id) {
-  // Todo: create logic for get student
-  const studentDummy = new Array(10).fill(undefined).map((e, idx) => (
-    {
-      id: idx,
-      name: `student ${idx}`,
-      point: `${id * 10}`
-    }
-  )).sort((a, b) => b.point - a.point);
+export async function getStudent(botId) {
+  const student = Parse.Object.extend('Student');
+  const studentQuery = new Parse.Query(student);
+  studentQuery.equalTo('botId', botId).select('userName', 'point');
 
-  await fakeAsync();
+  const result = await studentQuery.find();
 
-  return studentDummy;
+  return _.sortBy(result.map(e => ({
+    id: e.id,
+    userName: e.attributes.userName,
+    point: e.attributes.point
+  })), (result, t => -t.point));
 }
 
-export function createBot(key, password) {
-  const response = { key, password };
-  // Todo: create logic for add bot
-  return response;
+export async function createBot(key) {
+  const {
+    CALL, BOT_API_KEY, BOT_NAME
+  } = DB.BOT;
+  const query = new Parse.Query(DB.BOT.CALL);
+  query.equalTo(BOT_API_KEY, key);
+
+  try {
+    const res = await checkToken(key);
+    const bots = await query.find();
+
+    if (_.isEmpty(bots)) {
+      const bot = new Parse.Object(CALL);
+      await bot.save({
+        [BOT_NAME]: res.user,
+        [BOT_API_KEY]: key
+      });
+    } else {
+      return Promise.reject(new Error('already existing token'));
+    }
+  } catch (error) {
+    return Promise.reject(error);
+  }
 }
 

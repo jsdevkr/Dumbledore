@@ -13,12 +13,13 @@ module.exports = {
     filename: 'bundle.js',
     port: 8080,
     proxy: {
-      '/': 'http://localhost:1337'
+      '/api': 'http://localhost:1337'
     },
     watchOptions: {
       ignore: [path.resolve('lib/*.js'), path.resolve('server/*.js')],
       aggregateTimeout: 300
-    }
+    },
+    contentBase: './public'
   },
   module: {
     rules: [
@@ -70,7 +71,11 @@ module.exports = {
   devtool: 'eval',
   plugins: [
     new webpack.DefinePlugin({
-      'process.env.NODE_ENV': JSON.stringify('development')
+      'process.env': {
+        NODE_ENV: JSON.stringify(process.env.NODE_ENV || 'development'),
+        APP_ID: JSON.stringify(process.env.APP_ID || 'myAppId'),
+        PARSE_EXTERNAL_URL: JSON.stringify(process.env.PARSE_EXTERNAL_URL || 'http://localhost:1337/parse'),
+      }
     })
   ]
 };
