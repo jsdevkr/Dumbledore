@@ -30,7 +30,8 @@ class NavBar extends Component {
     try {
       await createBot(key, botName);
       this.setState({
-        registerModal: false
+        registerModal: false,
+        registerInfo: 'Add a bot https://my.slack.com/services/new/bot and put the token'
       });
     } catch (error) {
       this.setState({

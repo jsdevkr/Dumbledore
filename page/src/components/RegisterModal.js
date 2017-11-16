@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { Button, Header, Icon, Modal, Form, Message } from 'semantic-ui-react';
-import './RegisterModal.css';
 
 class registerModal extends Component {
   constructor() {
@@ -33,7 +32,7 @@ class registerModal extends Component {
     const { open, closeHandler, info } = this.props;
 
     return (
-      <Modal id="register__modal" size="mini" open={open} onClose={() => closeHandler('registerModal')}>
+      <Modal id="register__modal" size="tiny" open={open} onClose={() => closeHandler('registerModal')}>
         <Header icon="user plus" content="register" />
         <Modal.Content>
           <Form>
@@ -41,9 +40,9 @@ class registerModal extends Component {
               icon="help"
               content={info}
             />
-            <Form.Field required>
+            <Form.Field>
               <label>api key</label>
-              <input placeholder="check your slack service" id="key" name="apiKey" onChange={this.onChange} />
+              <input placeholder="check your slack service" id="token" name="apiKey" onChange={this.onChange} />
             </Form.Field>
           </Form>
         </Modal.Content>

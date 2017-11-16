@@ -1,8 +1,9 @@
 import React, { Component } from 'react';
-import { Grid, Search, Loader } from 'semantic-ui-react';
+import { Grid, Search, Loader, Sticky } from 'semantic-ui-react';
 import _ from 'lodash';
 import Table from '../components/Table';
 import { getBot, getStudent } from '../helper/fetch';
+import './Body.css';
 
 class Body extends Component {
   constructor(props) {
@@ -50,22 +51,27 @@ class Body extends Component {
     const {
       botIsLoading, studentIsLoading, value, bots, students, errMessage
     } = this.state;
-    const resultRenderer = ({ botName }) => <div>{botName}</div>;
+    const resultRenderer = ({ botName }) => <div className="searchBox">{botName}</div>;
     const studentsTable = students.length > 0 ? <Table data={students} /> : '';
 
     return (
       <Grid.Row>
-        <Search
-          loading={botIsLoading}
-          onResultSelect={this.handleResultSelect}
-          onSearchChange={this.handleSearchChange}
-          results={bots}
-          value={value}
-          input={{ placeholder: 'what is bot name...?' }}
-          resultRenderer={resultRenderer}
-          fluid
-          {...this.props}
-        />
+        <Grid.Row centered className="search">
+          <Sticky>
+            <Search
+              loading={botIsLoading}
+              onResultSelect={this.handleResultSelect}
+              onSearchChange={this.handleSearchChange}
+              results={bots}
+              value={value}
+              input={{ placeholder: 'what is bot name...?' }}
+              resultRenderer={resultRenderer}
+              fluid
+              {...this.props}
+            />
+          </Sticky>
+        </Grid.Row>
+
         {errMessage}
         <Grid.Row>
           {studentsTable}

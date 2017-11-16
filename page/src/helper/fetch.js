@@ -59,17 +59,19 @@ export async function createBot(key) {
 
   try {
     const res = await checkToken(key);
-    const isExist = await query.find();
+    const bots = await query.find();
 
-    if (isExist) {
+    if (_.isEmpty(bots)) {
       const bot = new Parse.Object(CALL);
       await bot.save({
         [BOT_NAME]: res.user,
         [BOT_API_KEY]: key
       });
+    } else {
+      return Promise.reject(new Error('already existing token'));
     }
   } catch (error) {
-    return Promise.reject(new Error(error));
+    return Promise.reject(error);
   }
 }
 

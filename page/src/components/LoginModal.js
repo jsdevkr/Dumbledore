@@ -1,20 +1,15 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { Button, Header, Icon, Modal, Form } from 'semantic-ui-react';
-import './LoginModal.css';
 
 const LoginModal = ({ open, closeHandler }) => (
   <Modal id="login__modal" size="mini" open={open} onClose={() => closeHandler('loginModal')}>
     <Header icon="fort awesome" content="LogIn" />
     <Modal.Content>
       <Form>
-        <Form.Field required>
+        <Form.Field>
           <label>api key</label>
           <input placeholder="api key" id="key" />
-        </Form.Field>
-        <Form.Field required>
-          <label>password</label>
-          <input placeholder="password" id="password" />
         </Form.Field>
       </Form>
     </Modal.Content>
