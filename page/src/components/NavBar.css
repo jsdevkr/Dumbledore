@@ -10,10 +10,6 @@ html, body{height : 100%}
   font-size: 1.3rem;
 }
 
-#login {
-  margin-left: auto;
-}
-
 #login_key {
   position: relative;
   left : 15%;
@@ -34,10 +30,6 @@ html, body{height : 100%}
   -webkit-box-sizing: border-box;
      -moz-box-sizing: border-box;
           box-sizing: border-box;
-}
-
-#botRegister {
-  margin-left: 83%;
 }
 
 #bot_name {
