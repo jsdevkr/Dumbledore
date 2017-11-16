@@ -72,10 +72,10 @@ async function startBot() {
       const botCount = await query.count();
 
       if (!botCount) {
-        const name = process.env.BOT_NAME;
+        const name = 'bot1';//process.env.BOT_NAME;
 
         // base64 encoded token
-        let token = process.env.BOT_API_KEY;
+        let token = 'xoxb-248266143441-zgzDCId1tMbBG7GKaToXsUi2' //process.env.BOT_API_KEY;
         if (token.length > 42) token = atob(token);
 
         const obj = new Parse.Object(DB.BOT.CALL);
