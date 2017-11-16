@@ -1,4 +1,4 @@
-import React from 'react';
+import React from 'react';//import react
 import PropTypes from 'prop-types';
 import { Button, Header, Icon, Modal, Form } from 'semantic-ui-react';
 
