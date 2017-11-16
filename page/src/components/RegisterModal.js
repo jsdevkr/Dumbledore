@@ -8,8 +8,6 @@ class registerModal extends Component {
     super();
     this.state = {
       apiKey: '',
-      password: '',
-      retype: '',
       botName: '',
       info: 'Add a bot https://my.slack.com/services/new/bot and put the token'
     };
@@ -27,16 +25,10 @@ class registerModal extends Component {
   onSubmit() {
     const { handleRegister } = this.props;
     const {
-      apiKey, password, botName, retype
+      apiKey, botName
     } = this.state;
 
-    if (password === retype) {
-      handleRegister(apiKey, botName, password);
-    } else {
-      this.setState({
-        info: 'please check retype password'
-      });
-    }
+    handleRegister(apiKey, botName);
   }
 
   render() {
@@ -60,14 +52,6 @@ class registerModal extends Component {
             <Form.Field required>
               <label>bot name</label>
               <input placeholder="check your slack service" id="name" name="botName" onChange={this.onChange} />
-            </Form.Field>
-            <Form.Field required>
-              <label>password</label>
-              <input placeholder="password" type="password" id="password" name="password" onChange={this.onChange} />
-            </Form.Field>
-            <Form.Field required>
-              <label>retype password</label>
-              <input placeholder="retype password" type="password" id="retype-password" name="retype" onChange={this.onChange} />
             </Form.Field>
           </Form>
         </Modal.Content>

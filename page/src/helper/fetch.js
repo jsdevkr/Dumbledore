@@ -7,6 +7,24 @@ const { APP_ID, PARSE_EXTERNAL_URL } = process.env;
 Parse.initialize(APP_ID);
 Parse.serverURL = PARSE_EXTERNAL_URL;
 
+async function checkToken(token, name) {
+  return new Promise((resolve, reject) => {
+    const xhttp = new XMLHttpRequest();
+
+    xhttp.onreadystatechange = function () {
+      const { ok, error, user } = this.responseText;
+
+      if (this.readyState === 4 && this.status === 200 && ok && user === name) {
+        resolve(this.responseText);
+      } else {
+        reject(error || 'invalid bot name');
+      }
+    };
+    xhttp.open('GET', `https://slack.com/api/auth.test?token=${token}`, true);
+    xhttp.send();
+  });
+}
+
 export async function getBot() {
   const bot = Parse.Object.extend('Bot');
   const botQuery = new Parse.Query(bot);
@@ -39,6 +57,7 @@ export async function createBot(key, name, password) {
   query.equalTo(BOT_API_KEY, key);
 
   try {
+    await checkToken(key, name);
     const isExist = await query.find();
     if (isExist) {
       const bot = new Parse.Object(CALL);
