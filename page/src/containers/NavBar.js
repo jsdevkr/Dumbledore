@@ -9,7 +9,8 @@ class NavBar extends Component {
     super(props);
     this.state = {
       registerModal: false,
-      loginModal: false
+      loginModal: false,
+      registerInfo: 'Add a bot https://my.slack.com/services/new/bot and put the token'
     };
 
     this.handleClick = this.handleClick.bind(this);
@@ -21,19 +22,25 @@ class NavBar extends Component {
     });
   }
 
-  handleKeyDown() {
-    console.log('keyDown');
+  handleKeyDown(e) {
+    console.log(e);
   }
 
-  async handleRegister(key, botName, password) {
-    await createBot(key, botName, password);
-    this.setState({
-      registerModal: false
-    });
+  async handleRegister(key, botName) {
+    try {
+      await createBot(key, botName);
+      this.setState({
+        registerModal: false
+      });
+    } catch (error) {
+      this.setState({
+        registerInfo: error.message
+      });
+    }
   }
 
   render() {
-    const { registerModal, loginModal } = this.state;
+    const { registerModal, loginModal, registerInfo } = this.state;
 
     return (
       <div id="navbar">
@@ -56,7 +63,7 @@ class NavBar extends Component {
           >signIn
           </div>
         </div>
-        <RegisterModal open={registerModal} closeHandler={this.handleClick} handleRegister={this.handleRegister} />
+        <RegisterModal open={registerModal} closeHandler={this.handleClick} handleRegister={this.handleRegister} info={registerInfo} />
         <LoginModal open={loginModal} closeHandler={this.handleClick} />
       </div>
     );

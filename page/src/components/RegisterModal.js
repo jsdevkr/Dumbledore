@@ -8,8 +8,6 @@ class registerModal extends Component {
     super();
     this.state = {
       apiKey: '',
-      botName: '',
-      info: 'Add a bot https://my.slack.com/services/new/bot and put the token'
     };
 
     this.onChange = this.onChange.bind(this);
@@ -25,15 +23,14 @@ class registerModal extends Component {
   onSubmit() {
     const { handleRegister } = this.props;
     const {
-      apiKey, botName
+      apiKey
     } = this.state;
 
-    handleRegister(apiKey, botName);
+    handleRegister(apiKey);
   }
 
   render() {
-    const { open, closeHandler } = this.props;
-    const { info } = this.state;
+    const { open, closeHandler, info } = this.props;
 
     return (
       <Modal id="register__modal" size="mini" open={open} onClose={() => closeHandler('registerModal')}>
@@ -42,16 +39,11 @@ class registerModal extends Component {
           <Form>
             <Message
               icon="help"
-              header="before registring..."
               content={info}
             />
             <Form.Field required>
               <label>api key</label>
               <input placeholder="check your slack service" id="key" name="apiKey" onChange={this.onChange} />
-            </Form.Field>
-            <Form.Field required>
-              <label>bot name</label>
-              <input placeholder="check your slack service" id="name" name="botName" onChange={this.onChange} />
             </Form.Field>
           </Form>
         </Modal.Content>
@@ -71,7 +63,8 @@ class registerModal extends Component {
 registerModal.propTypes = {
   closeHandler: PropTypes.func.isRequired,
   handleRegister: PropTypes.func.isRequired,
-  open: PropTypes.bool.isRequired
+  open: PropTypes.bool.isRequired,
+  info: PropTypes.string.isRequired
 };
 
 export default registerModal;
