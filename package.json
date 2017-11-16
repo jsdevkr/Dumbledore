@@ -4,14 +4,14 @@
   "description": "Dumbledore the Slackbot",
   "main": "bin/bot.js",
   "scripts": {
-    "pretest": "npm run lint && mongodb-runner start",
+    "pretest": "npm run lintfix && mongodb-runner start",
     "test": "better-npm-run test",
     "posttest": "mongodb-runner stop",
     "lint": "eslint -c .eslintrc .",
     "lintfix": "eslint -c .eslintrc . --fix",
     "postinstall": "npm run build",
     "start": "better-npm-run start",
-    "predev": "npm run lint && mongodb-runner start",
+    "predev": "npm run lintfix && mongodb-runner start",
     "dev": "npm-run-all --parallel dev:*",
     "dev:server": "better-npm-run dev:server",
     "dev:client": "better-npm-run dev:client",
@@ -52,6 +52,7 @@
     "react-dom": "^16.0.0",
     "semantic-ui-css": "^2.2.12",
     "semantic-ui-react": "^0.75.1",
+    "serve-favicon": "^2.4.5",
     "slackbots": "^1.1.0"
   },
   "engines": {

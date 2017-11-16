@@ -73,7 +73,6 @@ async function startBot() {
 
       if (!botCount) {
         const name = process.env.BOT_NAME;
-        const password = process.env.BOT_PASSWORD;
 
         // base64 encoded token
         let token = process.env.BOT_API_KEY;
@@ -82,8 +81,7 @@ async function startBot() {
         const obj = new Parse.Object(DB.BOT.CALL);
         await obj.save({
           [DB.BOT.BOT_NAME]: name,
-          [DB.BOT.BOT_API_KEY]: token,
-          [DB.BOT.PASSWORD]: password // todo: add encrypt
+          [DB.BOT.BOT_API_KEY]: token
         });
       }
     }
