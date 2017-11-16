@@ -7,17 +7,18 @@ const { APP_ID, PARSE_EXTERNAL_URL } = process.env;
 Parse.initialize(APP_ID);
 Parse.serverURL = PARSE_EXTERNAL_URL;
 
-async function checkToken(token, name) {
+function checkToken(token) {
   return new Promise((resolve, reject) => {
     const xhttp = new XMLHttpRequest();
 
     xhttp.onreadystatechange = function () {
-      const { ok, error, user } = this.responseText;
+      if (!this.responseText) return;
+      const res = JSON.parse(this.responseText);
 
-      if (this.readyState === 4 && this.status === 200 && ok && user === name) {
-        resolve(this.responseText);
-      } else {
-        reject(error || 'invalid bot name');
+      if (this.readyState === 4 && this.status === 200 && res.ok) {
+        resolve(res);
+      } else if (res.error) {
+        reject(new Error(res.error));
       }
     };
     xhttp.open('GET', `https://slack.com/api/auth.test?token=${token}`, true);
@@ -49,26 +50,28 @@ export async function getStudent(botId) {
   })), (result, t => -t.point));
 }
 
-export async function createBot(key, name, password) {
+export async function createBot(key) {
   const {
-    CALL, BOT_API_KEY, BOT_NAME, PASSWORD
+    CALL, BOT_API_KEY, BOT_NAME
   } = DB.BOT;
   const query = new Parse.Query(DB.BOT.CALL);
   query.equalTo(BOT_API_KEY, key);
 
   try {
-    await checkToken(key, name);
-    const isExist = await query.find();
-    if (isExist) {
+    const res = await checkToken(key);
+    const bots = await query.find();
+
+    if (_.isEmpty(bots)) {
       const bot = new Parse.Object(CALL);
       await bot.save({
-        [BOT_NAME]: name,
-        [BOT_API_KEY]: key,
-        [PASSWORD]: password,
+        [BOT_NAME]: res.user,
+        [BOT_API_KEY]: key
       });
+    } else {
+      return Promise.reject(new Error('already existing token'));
     }
   } catch (error) {
-    console.log(error);
+    return Promise.reject(error);
   }
 }
 

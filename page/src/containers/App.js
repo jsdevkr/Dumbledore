@@ -17,7 +17,7 @@ class App extends Component {
     return (
       <div id="container">
         <NavBar />
-        <Grid centered>
+        <Grid centered stackable stretched>
           <Grid.Row>
             <Header />
           </Grid.Row>
