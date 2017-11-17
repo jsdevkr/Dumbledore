@@ -57,7 +57,7 @@ async function createBot() {
     console.log('Start *Dumbledore* createBot error', e);
   }
 }
-
+//Bot start
 async function startBot() {
   try {
     await parseServer.create();
