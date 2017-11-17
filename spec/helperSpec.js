@@ -33,6 +33,7 @@ describe('In helper', function () {
 
   it('Any functions should not be `undefined` in slackBot', () => {
     expect(slackBot.reactionPointsCallback).toBeDefined();
+    expect(slackBot.reactionCancelCallback).toBeDefined();
     expect(slackBot.awardPointsCallback).toBeDefined();
     expect(slackBot.announcePlainString).toBeDefined();
     expect(slackBot.getUserList).toBeDefined();
