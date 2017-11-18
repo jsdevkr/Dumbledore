@@ -3,7 +3,7 @@
 
 A Slack Bot called Dumbledore that lets your team join houses and award house points.
 
-## Installation 
+## Installation
 * clone this reposity to the machine you want to run the server on.
 * If you do not have node `>= 8.0.0` and npm installed on your machine install it
 * in the dumbledore directory run:
@@ -83,6 +83,26 @@ $ npm start
 
 ## Making Dumbledore
 This bot was based off the work of lmammino and the norrisbot project. I created most of the bot in a few days, but this is still an early version and I recognize the code could be much inproved.
+
+## How to Use Dumbledore
+* To professor
+```bash
+`professor` best student
+`professor` worst student
+`professor` tell me about @user
+`professor` list student score
+```
+* To user
+```bash
+'num' points to @user
+```
+
+* Reaction
+```bash
+When user answer to you
+Give point by doing reaction
+'100' || '+1' || 'grinning' || 'heart'
+```
 
 ## License
 
