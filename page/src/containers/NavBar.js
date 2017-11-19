@@ -16,6 +16,7 @@ class NavBar extends Component {
     this.handleClick = this.handleClick.bind(this);
     this.handleRegister = this.handleRegister.bind(this);
   }
+
   handleClick(name) {
     this.setState({
       [name]: !this.state[name]
@@ -60,7 +61,7 @@ class NavBar extends Component {
             tabIndex={0}
             onClick={() => { this.handleClick('logModal'); }}
             onKeyDown={this.handleKeyDown}
-          >signIn
+          >live log
           </div>
         </div>
         <RegisterModal open={registerModal} closeHandler={this.handleClick} handleRegister={this.handleRegister} info={registerInfo} />

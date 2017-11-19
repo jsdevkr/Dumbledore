@@ -35,7 +35,7 @@ export async function getBot() {
   return result.map(e => ({ id: e.id, botName: e.attributes.botName }));
 }
 
-export async function getStudent(botId) {
+export async function getAllStudent(botId) {
   const studentQuery = new Parse.Query(DB.STUDENT.CALL);
   studentQuery.equalTo('botId', botId).select('userName', 'point');
 
@@ -46,6 +46,15 @@ export async function getStudent(botId) {
     userName: e.attributes.userName,
     point: e.attributes.point
   })), (result, t => -t.point));
+}
+
+export async function getUserName(userId) {
+  const studentQuery = new Parse.Query(DB.STUDENT.CALL);
+  studentQuery.equalTo('userId', userId).select('userName');
+
+  const result = await studentQuery.first();
+
+  return result.attributes.userName;
 }
 
 export async function createBot(key) {
@@ -74,11 +83,14 @@ export async function createBot(key) {
 }
 
 export async function getLiveQuery(token) {
-  const studentQuery = new Parse.Query(DB.STUDENT.CALL);
+  const studentQuery = new Parse.Query(DB.MESSAGE.CALL);
+
   const botQuery = new Parse.Query(DB.BOT.CALL);
   botQuery.equalTo('botApi', token);
   const bot = await botQuery.first();
-  studentQuery.equalTo('botId', bot.id).select('userName', 'point', 'updatedAt');
+
+  studentQuery.equalTo('botId', bot.id);
+
   const subscription = studentQuery.subscribe();
 
   return subscription;

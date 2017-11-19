@@ -28,7 +28,7 @@ class ParseInstance {
           masterKey: settings.masterKey || 'masterKey', // Add your master key here. Keep it secret!
           serverURL: settings.serverURL || 'http://localhost:1337/parse', // Don't forget to change to https if needed
           liveQuery: {
-            classNames: [DB.STUDENT.CALL] // List of classes to support for query subscriptions
+            classNames: [DB.MESSAGE.CALL] // List of classes to support for query subscriptions
           }
         });
 

@@ -1,107 +1,81 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-import { Button, Header, Icon, Modal, Form, List, Input } from 'semantic-ui-react';
-import { getLiveQuery } from '../helper/fetch';
+import { Button, Header, Icon, Modal, Form } from 'semantic-ui-react';
+import LogList from '../components/LogList';
+import { getLiveQuery, getUserName } from '../helper/fetch';
 
 class LogModal extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      // logs: []
+      token: '',
+      logs: []
     };
+
+    this.onLive = this.onLive.bind(this);
+    this.onChange = this.onChange.bind(this);
   }
 
-  componentDidMount() {
-    this.onLive('xoxb-248266143441-zgzDCId1tMbBG7GKaToXsUi2');
-  }
+  onLive() {
+    const { token } = this.state;
+    if (!token) return;
 
-  async onLive(botId) {
-    const subscription = await getLiveQuery(botId); // todo: insert botId
+    getLiveQuery(token).then(subscription => {
+      subscription.on('open', () => {
+        this.setState({
+          logs: [this.logParser('open'), ...this.state.logs]
+        });
+      });
 
-    subscription.on('open', () => {
-      console.log('socket open');
-    });
-
-    subscription.on('update', (object) => {
-      console.log(object);
-    });
-
-    subscription.on('enter', (object) => {
-      console.log(object);
-    });
-
-    subscription.on('create', (object) => {
-      console.log(object);
+      subscription.on('create', async object => {
+        const user = await getUserName(object.attributes.userId);
+        this.setState({
+          logs: [this.logParser('point', user, object), ...this.state.logs]
+        });
+      });
     });
   }
 
-  logParser(parseObj) {
-    return parseObj.map(e => ({ userName: e.attributes.userName }));
+  onChange(e) {
+    this.setState({
+      [e.target.name]: e.target.value
+    });
+  }
+
+  onKeyDown() {
+  }
+
+  logParser(type, user, object) {
+    if (type === 'open') return { type: 'open' };
+
+    const { createdAt, amount, op } = object.attributes;
+
+    return {
+      userName: user, type, createdAt, amount, op
+    };
   }
 
   render() {
     const { open, closeHandler } = this.props;
+    const { logs, token } = this.state;
 
     return (
-      <Modal id="login__modal" size="tiny" open={open} onClose={() => closeHandler('loginModal')}>
+      <Modal id="log__modal" size="tiny" open={open} onClose={() => closeHandler('logModal')}>
         <Header icon="fort awesome" content="live log" />
         <Modal.Content>
           <Form>
             <Form.Field>
-              <Input action={{ icon: 'lightning' }} placeholder="api token..." />
+              <div className="ui action input">
+                <input type="text" id="token" name="token" placeholder="api token..." value={token} onChange={this.onChange} />
+                <div className="ui button" onClick={this.onLive} onKeyDown={this.onKeyDown} role="button" tabIndex="0"><Icon loading name="lightning" /></div>
+              </div>
             </Form.Field>
           </Form>
-          <List divided relaxed className="log__container">
-            <List.Item>
-              <List.Icon name="angle double up" size="large" verticalAlign="middle" color="green" />
-              <List.Content>
-                <List.Header as="a">Semantic-Org/Semantic-UI</List.Header>
-                <List.Description as="a">Updated 10 mins ago</List.Description>
-              </List.Content>
-            </List.Item>
-            <List.Item>
-              <List.Icon name="angle double up" size="large" verticalAlign="middle" color="green" />
-              <List.Content>
-                <List.Header as="a">Semantic-Org/Semantic-UI-Docs</List.Header>
-                <List.Description as="a">Updated 22 mins ago</List.Description>
-              </List.Content>
-            </List.Item>
-            <List.Item>
-              <List.Icon name="angle double down" size="large" verticalAlign="middle" color="red" />
-              <List.Content>
-                <List.Header as="a">ho1234c has 10 point</List.Header>
-                <List.Description as="a">Updated 34 mins ago</List.Description>
-              </List.Content>
-            </List.Item>
-            <List.Item>
-              <List.Icon name="compress" color="blue" size="large" verticalAlign="middle" />
-              <List.Content>
-                <List.Header as="a">Connect successfully</List.Header>
-                <List.Description as="a">Updated 10 mins ago</List.Description>
-              </List.Content>
-            </List.Item>
-            <List.Item>
-              <List.Icon name="github" size="large" verticalAlign="middle" />
-              <List.Content>
-                <List.Header as="a">Semantic-Org/Semantic-UI-Docs</List.Header>
-                <List.Description as="a">Updated 22 mins ago</List.Description>
-              </List.Content>
-            </List.Item>
-            <List.Item>
-              <List.Icon name="github" size="large" verticalAlign="middle" />
-              <List.Content>
-                <List.Header as="a">Semantic-Org/Semantic-UI-Meteor</List.Header>
-                <List.Description as="a">Updated 34 mins ago</List.Description>
-              </List.Content>
-            </List.Item>
-          </List>
+          <LogList logs={logs} />
         </Modal.Content>
         <Modal.Actions>
-          <Button color="grey" onClick={() => closeHandler('loginModal')}>
-            <Icon name="cancel" /> cancel
-          </Button>
-          <Button color="black" >
-            <Icon name="fort awesome" /> submit
+          <Button color="grey" onClick={() => closeHandler('logModal')}>
+            <Icon name="close" /> close
           </Button>
         </Modal.Actions>
       </Modal>
