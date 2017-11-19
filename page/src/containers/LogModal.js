@@ -14,6 +14,7 @@ class LogModal extends Component {
 
     this.onLive = this.onLive.bind(this);
     this.onChange = this.onChange.bind(this);
+    this.closeModal = this.closeModal.bind(this);
   }
 
   onLive() {
@@ -55,12 +56,19 @@ class LogModal extends Component {
     };
   }
 
+  closeModal() {
+    this.props.closeHandler('logModal');
+    this.setState({
+      logs: []
+    });
+  }
+
   render() {
-    const { open, closeHandler } = this.props;
+    const { open } = this.props;
     const { logs, token } = this.state;
 
     return (
-      <Modal id="log__modal" size="tiny" open={open} onClose={() => closeHandler('logModal')}>
+      <Modal id="log__modal" size="tiny" open={open} onClose={this.closeModal}>
         <Header icon="fort awesome" content="live log" />
         <Modal.Content>
           <Form>
@@ -74,7 +82,7 @@ class LogModal extends Component {
           <LogList logs={logs} />
         </Modal.Content>
         <Modal.Actions>
-          <Button color="grey" onClick={() => closeHandler('logModal')}>
+          <Button color="grey" onClick={this.closeModal}>
             <Icon name="close" /> close
           </Button>
         </Modal.Actions>
