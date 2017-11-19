@@ -19,7 +19,8 @@ class NavBar extends Component {
 
   handleClick(name) {
     this.setState({
-      [name]: !this.state[name]
+      [name]: !this.state[name],
+      registerInfo: 'Add a bot https://my.slack.com/services/new/bot and put the token'
     });
   }
 
