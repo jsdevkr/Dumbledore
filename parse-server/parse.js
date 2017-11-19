@@ -2,6 +2,7 @@
 const express = require('express');
 const { ParseServer } = require('parse-server');
 const path = require('path');
+const { DB } = require('../lib/const');
 
 class ParseInstance {
   constructor(settings) {
@@ -26,6 +27,9 @@ class ParseInstance {
           appId: settings.appId || 'myAppId',
           masterKey: settings.masterKey || 'masterKey', // Add your master key here. Keep it secret!
           serverURL: settings.serverURL || 'http://localhost:1337/parse', // Don't forget to change to https if needed
+          liveQuery: {
+            classNames: [DB.STUDENT.CALL] // List of classes to support for query subscriptions
+          }
         });
 
         // Serve the Parse API on the /parse URL prefix
@@ -38,10 +42,15 @@ class ParseInstance {
         });
 
         const port = settings.port || 1337;
-        this.server = app.listen(port, function () {
+
+        const httpServer = require('http').createServer(app);
+
+        this.server = httpServer.listen(port, function () {
           console.log('parse-server running on port ' + port + '.');
           resolve();
         });
+
+        ParseServer.createLiveQueryServer(httpServer);
       } catch (error) {
         reject(error);
       }

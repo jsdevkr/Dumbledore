@@ -30,7 +30,7 @@
       "command": "jasmine"
     },
     "dev:server": {
-      "command": "nodemon ./bin/bot.js --watch server --watch lib --watch bin"
+      "command": "nodemon ./bin/bot.js --watch server --watch lib --watch bin --watch parse-server"
     },
     "dev:client": {
       "command": "webpack-dev-server --config ./page/webpack.config.dev.js"

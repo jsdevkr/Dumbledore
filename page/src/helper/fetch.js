@@ -27,8 +27,7 @@ function checkToken(token) {
 }
 
 export async function getBot() {
-  const bot = Parse.Object.extend('Bot');
-  const botQuery = new Parse.Query(bot);
+  const botQuery = new Parse.Query(DB.BOT.CALL);
   botQuery.select('botName');
 
   const result = await botQuery.find();
@@ -37,8 +36,7 @@ export async function getBot() {
 }
 
 export async function getStudent(botId) {
-  const student = Parse.Object.extend('Student');
-  const studentQuery = new Parse.Query(student);
+  const studentQuery = new Parse.Query(DB.STUDENT.CALL);
   studentQuery.equalTo('botId', botId).select('userName', 'point');
 
   const result = await studentQuery.find();
@@ -54,12 +52,12 @@ export async function createBot(key) {
   const {
     CALL, BOT_API_KEY, BOT_NAME
   } = DB.BOT;
-  const query = new Parse.Query(DB.BOT.CALL);
-  query.equalTo(BOT_API_KEY, key);
+  const botQuery = new Parse.Query(DB.BOT.CALL);
+  botQuery.equalTo(BOT_API_KEY, key);
 
   try {
     const res = await checkToken(key);
-    const bots = await query.find();
+    const bots = await botQuery.find();
 
     if (_.isEmpty(bots)) {
       const bot = new Parse.Object(CALL);
@@ -73,5 +71,16 @@ export async function createBot(key) {
   } catch (error) {
     return Promise.reject(error);
   }
+}
+
+export async function getLiveQuery(token) {
+  const studentQuery = new Parse.Query(DB.STUDENT.CALL);
+  const botQuery = new Parse.Query(DB.BOT.CALL);
+  botQuery.equalTo('botApi', token);
+  const bot = await botQuery.first();
+  studentQuery.equalTo('botId', bot.id).select('userName', 'point', 'updatedAt');
+  const subscription = studentQuery.subscribe();
+
+  return subscription;
 }
 
