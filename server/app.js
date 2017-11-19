@@ -1,6 +1,7 @@
 const express = require('express');
 const path = require('path');
 const httpProxy = require('http-proxy');
+const http = require('http');
 const favicon = require('serve-favicon');
 
 // parse dashboard
@@ -16,6 +17,8 @@ class ServerInstance {
       const { settings } = this;
       const port = settings.port || 55555;
       const app = express();
+      const proxyServer = http.createServer(app);
+
       app.use(favicon(path.resolve(__dirname, '../public', 'favicon-32.png')));
 
       // Proxy to API server
@@ -25,7 +28,7 @@ class ServerInstance {
         ws: true
       });
 
-      proxy.on('upgrade', function (req, socket, head) {
+      proxyServer.on('upgrade', function (req, socket, head) {
         proxy.ws(req, socket, head);
       });
 
@@ -60,7 +63,7 @@ class ServerInstance {
       app.get('/', (req, res) => {
         res.sendFile(path.join(__dirname, '../public/index.html'));
       });
-      this.server = app.listen(port, () => {
+      this.server = proxyServer.listen(port, () => {
         console.log('web-server running on port ' + port + '.');
         console.log('parse-dashboard on ' + port + '/dashboard');
         resolve();
