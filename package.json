@@ -30,7 +30,7 @@
       "command": "jasmine"
     },
     "dev:server": {
-      "command": "nodemon ./bin/bot.js --watch server --watch lib --watch bin"
+      "command": "nodemon ./bin/bot.js --watch server --watch lib --watch bin --watch parse-server"
     },
     "dev:client": {
       "command": "webpack-dev-server --config ./page/webpack.config.dev.js"
@@ -43,6 +43,7 @@
     "http-proxy": "^1.16.2",
     "kerberos": "0.0.23",
     "lodash": "^4.17.4",
+    "moment": "^2.19.2",
     "parse": "^1.10.0",
     "parse-dashboard": "^1.1.0",
     "parse-server": "^2.6.3",

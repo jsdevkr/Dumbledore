@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { Grid, Search, Loader, Sticky } from 'semantic-ui-react';
 import _ from 'lodash';
 import Table from '../components/Table';
-import { getBot, getStudent } from '../helper/fetch';
+import { getBot, getAllStudent } from '../helper/fetch';
 import './Body.css';
 
 class Body extends Component {
@@ -28,7 +28,7 @@ class Body extends Component {
       studentIsLoading: true
     });
     try {
-      const students = await getStudent(result.id);
+      const students = await getAllStudent(result.id);
       this.setState({ students, studentIsLoading: false });
     } catch (error) {
       this.setState({ errMessage: error.message, studentIsLoading: false });

@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import './NavBar.css';
-import LoginModal from '../components/LoginModal';
+import LogModal from './LogModal';
 import RegisterModal from '../components/RegisterModal';
 import { createBot } from '../helper/fetch';
 
@@ -9,21 +9,21 @@ class NavBar extends Component {
     super(props);
     this.state = {
       registerModal: false,
-      loginModal: false,
+      logModal: false,
       registerInfo: 'Add a bot https://my.slack.com/services/new/bot and put the token'
     };
 
     this.handleClick = this.handleClick.bind(this);
     this.handleRegister = this.handleRegister.bind(this);
   }
+
   handleClick(name) {
     this.setState({
       [name]: !this.state[name]
     });
   }
 
-  handleKeyDown(e) {
-    console.log(e);
+  handleKeyDown() {
   }
 
   async handleRegister(key, botName) {
@@ -41,7 +41,7 @@ class NavBar extends Component {
   }
 
   render() {
-    const { registerModal, loginModal, registerInfo } = this.state;
+    const { registerModal, logModal, registerInfo } = this.state;
 
     return (
       <div id="navbar">
@@ -56,16 +56,16 @@ class NavBar extends Component {
           >register
           </div>
           <div
-            id="login-btn"
+            id="log-btn"
             role="button"
             tabIndex={0}
-            onClick={() => { this.handleClick('loginModal'); }}
+            onClick={() => { this.handleClick('logModal'); }}
             onKeyDown={this.handleKeyDown}
-          >signIn
+          >live log
           </div>
         </div>
         <RegisterModal open={registerModal} closeHandler={this.handleClick} handleRegister={this.handleRegister} info={registerInfo} />
-        <LoginModal open={loginModal} closeHandler={this.handleClick} />
+        <LogModal open={logModal} closeHandler={this.handleClick} />
       </div>
     );
   }
