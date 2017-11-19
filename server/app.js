@@ -24,6 +24,11 @@ class ServerInstance {
         target: targetUrl,
         ws: true
       });
+
+      proxy.on('upgrade', function (req, socket, head) {
+        proxy.ws(req, socket, head);
+      });
+
       app.use('/api', (req, res) => {
         proxy.web(req, res, { target: targetUrl });
       });
