@@ -1,0 +1,9 @@
+diff a/page/src/components/NavBar.css b/page/src/components/NavBar.css	(rejected hunks)
+@@ -36,7 +36,6 @@
+ }
+ 
+ #botRegister {
+-  margin-left: 83%;
+   margin-left: 80%;
+ }
+ 

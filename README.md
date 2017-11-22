@@ -20,7 +20,6 @@ To run the Dumbledore you must have an [API token](#getting-the-api-token-for-yo
 $ BOT_API_KEY={key} BOT_NAME={name} node bin/bot.js
 ```
 
-
 ## Getting the API token for your Slack channel
 To allow the Dumbledore to connect your Slack channel you must provide him an API key. To retrieve it you need to add a new Bot in your Slack organization by visiting the following url: https://*yourorganization*.slack.com/services/new/bot, where *yourorganization* must be substituted with the name of your organization (e.g. https://*dumbledoretest*.slack.com/services/new/bot). Ensure you are logged to your Slack organization in your browser and you have the admin rights to add a new bot.
 
